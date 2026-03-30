@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M|R Walls — Sculptural Corian Surfaces</title>
+<meta name="description" content="CNC-carved DuPont™ Corian® architectural surfaces. Patented interlocking system. No joints. No grout.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f0;
+    --warm-white: #e8e4dc;
+    --mid: #888;
+    --accent: #c8b89a;
+    --dim: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.08);
+    --glow: rgba(255, 220, 160, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ═══════════════════════════════════════════
+     NAV BAR
+     ═══════════════════════════════════════════ */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: background 0.3s;
+  }
+  .nav-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    cursor: pointer;
+  }
+  .nav-logo span { color: var(--mid); }
+  .nav-items {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-items li {
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--mid);
+    cursor: pointer;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-items li:hover { color: var(--white); }
+  .nav-items li::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .nav-items li:hover::after { transform: scaleX(1); }
+  .nav-number {
+    font-size: 9px;
+    color: rgba(200,184,154,0.4);
+    margin-right: 4px;
+    font-weight: 500;
+  }
+  .nav-cta {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--black);
+    background: var(--white);
+    padding: 8px 20px;
+    border-radius: 3px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .nav-cta:hover {
+    background: var(--accent);
+    color: var(--black);
+  }
+
+  /* Mobile menu */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--white);
+    transition: all 0.3s;
+  }
+
+  /* ═══════════════════════════════════════════
+     SECTION 1 — HERO
+     ═══════════════════════════════════════════ */
+  .section-hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+  }
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_1920/v1765939772/Lake_Backlight_Feature_Wall_with_Model_touch_bdzoxn.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,0.25);
+  }
+
+  .hero-glow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 200px;
+    background: radial-gradient(ellipse at center bottom, var(--glow), transparent 70%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 48px 64px;
+    z-index: 3;
+    background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.4) 60%, transparent 100%);
+    padding-top: 160px;
+  }
+  .hero-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+  .hero-tagline {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--white);
+    max-width: 700px;
+    letter-spacing: -0.01em;
+  }
+  .hero-tagline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 14px;
+    color: var(--mid);
+    margin-top: 16px;
+    letter-spacing: 0.03em;
+    font-weight: 300;
+    max-width: 600px;
+  }
+  .hero-scroll {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.3);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .hero-scroll-line {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, rgba(200,184,154,0.4), transparent);
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  /* ═══════════════════════════════════════════
+     SECTION 2 — THE ROUTER
+     ═══════════════════════════════════════════ */
+  .section-router {
+    padding: 80px 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .section-router-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+  }
+  .section-router-header h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+  .section-router-header p {
+    font-size: 13px;
+    color: var(--mid);
+    letter-spacing: 0.03em;
+  }
+
+  .router-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .router-tile {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .router-tile:hover {
+    border-color: rgba(200,184,154,0.25);
+    transform: translateY(-3px);
+  }
+  .router-tile-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.6s ease;
+  }
+  .router-tile:hover .router-tile-img {
+    transform: scale(1.05);
+  }
+  .router-tile-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,10,0.3);
+    transition: background 0.3s;
+  }
+  .router-tile:hover .router-tile-img::after {
+    background: rgba(10,10,10,0.15);
+  }
+
+  .router-tile-glow {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s;
+    background: radial-gradient(ellipse at center, var(--glow), transparent 70%);
+    z-index: 1;
+  }
+  .router-tile:hover .router-tile-glow { opacity: 1; }
+
+  .router-tile-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    z-index: 2;
+    background: linear-gradient(to top, rgba(10,10,10,0.9), transparent);
+  }
+  .router-tile-name {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+  }
+  .router-tile-desc {
+    font-size: 11px;
+    color: var(--mid);
+    letter-spacing: 0.04em;
+  }
+  .router-tile-arrow {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--mid);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 3;
+  }
+  .router-tile:hover .router-tile-arrow {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+
+  .router-tile.healthcare-tile {
+    border-color: rgba(200,184,154,0.15);
+  }
+  .router-tile.healthcare-tile .router-tile-name::before {
+    content: '◈ ';
+    color: var(--accent);
+    font-size: 10px;
+  }
+
+  /* ═══════════════════════════════════════════
+     SECTION 3 — PROOF STRIP
+     ═══════════════════════════════════════════ */
+  .section-proof {
+    padding: 40px 48px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    overflow: hidden;
+  }
+  .proof-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,184,154,0.4);
+    white-space: nowrap;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .proof-track {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    flex-wrap: nowrap;
+    animation: scroll-proof 30s linear infinite;
+  }
+  .proof-name {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.3);
+    white-space: nowrap;
+    font-weight: 400;
+    transition: color 0.3s;
+    cursor: default;
+  }
+  .proof-name:hover { color: rgba(255,255,255,0.6); }
+  .proof-divider {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    flex-shrink: 0;
+  }
+
+  @keyframes scroll-proof {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ═══════════════════════════════════════════
+     SECTION 4 — THE SYSTEM
+     ═══════════════════════════════════════════ */
+  .section-system {
+    padding: 80px 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .system-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .system-visual {
+    aspect-ratio: 9/16;
+    max-height: 540px;
+    background: var(--dim);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .system-visual video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .system-text .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-weight: 500;
+    opacity: 0.7;
+  }
+  .system-text h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+  .system-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .system-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--warm-white);
+    letter-spacing: 0.02em;
+  }
+  .feature-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--accent);
+    margin-top: 1px;
+  }
+  .feature-text strong {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .feature-text span {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  .system-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    padding: 10px 18px;
+    border: 1px solid rgba(200,184,154,0.15);
+    border-radius: 3px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .system-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  /* ═══════════════════════════════════════════
+     SECTION 5 — THREE PATHS CTA
+     ═══════════════════════════════════════════ */
+  .section-paths {
+    padding: 80px 48px 100px;
+    position: relative;
+  }
+  .paths-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .paths-header .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-weight: 500;
+    opacity: 0.7;
+  }
+  .paths-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .paths-header p {
+    font-size: 14px;
+    color: var(--mid);
+    letter-spacing: 0.03em;
+  }
+
+  .paths-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .path-card {
+    padding: 48px 40px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--dim);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+  .path-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center bottom, var(--glow), transparent 80%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .path-card:hover::before { opacity: 1; }
+  .path-card:hover {
+    border-color: rgba(200,184,154,0.25);
+    transform: translateY(-4px);
+  }
+  .path-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--accent);
+    position: relative;
+    z-index: 1;
+    transition: border-color 0.3s;
+  }
+  .path-card:hover .path-card-icon {
+    border-color: rgba(200,184,154,0.3);
+  }
+  .path-card h3 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .path-card p {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  .path-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 24px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    position: relative;
+    z-index: 1;
+    font-weight: 500;
+    transition: gap 0.3s;
+  }
+  .path-card:hover .path-card-link { gap: 10px; }
+
+  /* ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ */
+  .site-footer {
+    padding: 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    color: var(--mid);
+  }
+  .footer-logo span { color: rgba(255,255,255,0.2); }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.04em;
+  }
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+  .footer-links li {
+    font-size: 12px;
+    color: var(--mid);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .footer-links li:hover { color: var(--white); }
+
+  /* ═══════════════════════════════════════════
+     SCROLL ANIMATIONS
+     ═══════════════════════════════════════════ */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .system-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .system-visual {
+      max-height: 400px;
+      aspect-ratio: 16/9;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      padding: 16px 24px;
+    }
+    .nav-items {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+    }
+    .nav-items.open { display: flex; }
+    .nav-items li { padding: 12px 0; }
+    .nav-toggle { display: flex; }
+    .nav-cta { display: none; }
+
+    .hero-content {
+      padding: 0 24px 48px;
+      padding-top: 120px;
+    }
+    .hero-tagline { font-size: 32px; }
+
+    .section-router { padding: 48px 24px; }
+    .section-router-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .router-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .section-proof {
+      padding: 32px 24px;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .section-system { padding: 48px 24px; }
+    .system-text h3 { font-size: 26px; }
+
+    .section-paths { padding: 48px 24px 64px; }
+    .paths-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .path-card { padding: 32px 24px; }
+    .paths-header h2 { font-size: 28px; }
+
+    .site-footer {
+      padding: 32px 24px;
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .router-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-tagline { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV BAR -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">M<span>|</span>R WALLS</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-items" id="navItems">
+      <li><a href="#applications"><span class="nav-number">01</span> Applications</a></li>
+      <li><a href="#system"><span class="nav-number">02</span> The Material</a></li>
+      <li><a href="#system"><span class="nav-number">03</span> Projects</a></li>
+      <li><a href="#paths"><span class="nav-number">04</span> Design Library</a></li>
+      <li><a href="#paths"><span class="nav-number">05</span> MakeReal</a></li>
+      <li><a href="#paths"><span class="nav-number">06</span> Studio</a></li>
+    </ul>
+    <a href="#paths" class="nav-cta">Contact</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — HERO
+       ═══════════════════════════════════════════ -->
+  <section class="section-hero" id="hero">
+    <div class="hero-image"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-label">M|R Walls</div>
+      <h1 class="hero-tagline">Sculptural surfaces. Carved from Corian.<br><em>Some of them glow.</em></h1>
+      <p class="hero-sub">CNC-carved DuPont™ Corian® architectural surfaces · Patented interlocking system · No joints</p>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — THE ROUTER
+       ═══════════════════════════════════════════ -->
+  <section class="section-router" id="applications">
+    <div class="section-router-header fade-up">
+      <h2>What are you building?</h2>
+      <p>Select your application →</p>
+    </div>
+    <div class="router-grid">
+      <a class="router-tile fade-up" href="#">
+        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769212741/flame-hospitality_h9crvd.png')"></div>
+        <div class="router-tile-glow"></div>
+        <div class="router-tile-content">
+          <div class="router-tile-name">Elevator Lobbies</div>
+          <div class="router-tile-desc">Seamless surfaces for high-traffic circulation</div>
+        </div>
+        <div class="router-tile-arrow">→</div>
+      </a>
+      <a class="router-tile fade-up" href="#">
+        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769147362/billow-backlight_w4hjru.jpg')"></div>
+        <div class="router-tile-glow"></div>
+        <div class="router-tile-content">
+          <div class="router-tile-name">Feature Walls</div>
+          <div class="router-tile-desc">Sculptural statement surfaces</div>
+        </div>
+        <div class="router-tile-arrow">→</div>
+      </a>
+      <a class="router-tile fade-up" href="#">
+        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1765771518/blue_-facade-_soldier-VA_-_Large_rc45wv.png')"></div>
+        <div class="router-tile-glow"></div>
+        <div class="router-tile-content">
+          <div class="router-tile-name">Facades & Exteriors</div>
+          <div class="router-tile-desc">Rain screens · Canopies · Building envelopes</div>
+        </div>
+        <div class="router-tile-arrow">→</div>
+      </a>
+      <a class="router-tile fade-up" href="#">
+        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1765939772/Morongo_Casino_-_Medium_w9ymlt.jpg')"></div>
+        <div class="router-tile-glow"></div>
+        <div class="router-tile-content">
+          <div class="router-tile-name">Ceilings</div>
+          <div class="router-tile-desc">Carved canopies and overhead sculpture</div>
+        </div>
+        <div class="router-tile-arrow">→</div>
+      </a>
+      <a class="router-tile healthcare-tile fade-up" href="#">
+        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Seattle-V2-tile-02_bvcqwc.png')"></div>
+        <div class="router-tile-glow"></div>
+        <div class="router-tile-content">
+          <div class="router-tile-name">Healthcare</div>
+          <div class="router-tile-desc">Antimicrobial · Zero-joint · GREENGUARD certified</div>
+        </div>
+        <div class="router-tile-arrow">→</div>
+      </a>
+      <a class="router-tile fade-up" href="#">
+        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Brick_waterfeature_05_copy_kewkyh.png')"></div>
+        <div class="router-tile-glow"></div>
+        <div class="router-tile-content">
+          <div class="router-tile-name">Water Features</div>
+          <div class="router-tile-desc">Non-porous carved surfaces with integrated flow</div>
+        </div>
+        <div class="router-tile-arrow">→</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — PROOF STRIP
+       ═══════════════════════════════════════════ -->
+  <section class="section-proof">
+    <div class="proof-label">Installed at</div>
+    <div class="proof-track">
+      <span class="proof-name">LAX</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">Mayo Clinic</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">Crypto.com Arena</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">Jefferson Health</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">TikTok Nashville</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">Christ Journey Church</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">University of Wisconsin</span>
+      <div class="proof-divider"></div>
+      <!-- Duplicate for seamless loop -->
+      <span class="proof-name">LAX</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">Mayo Clinic</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">Crypto.com Arena</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">Jefferson Health</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">TikTok Nashville</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">Christ Journey Church</span>
+      <div class="proof-divider"></div>
+      <span class="proof-name">University of Wisconsin</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — THE SYSTEM
+       ═══════════════════════════════════════════ -->
+  <section class="section-system" id="system">
+    <div class="system-layout">
+      <div class="system-visual fade-up">
+        <video autoplay loop muted playsinline>
+          <source src="https://res.cloudinary.com/dtlodxxio/video/upload/q_auto,w_720/v1765772971/install_MR-LAX_720_-_puzzle_video_-_720_x_1280_m2ewcs.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="system-text fade-up">
+        <div class="section-label">The System</div>
+        <h3>CNC-carved. Interlocking.<br>No joints. No grout.<br>No field cutting.</h3>
+        <ul class="system-features">
+          <li>
+            <div class="feature-icon">◇</div>
+            <div class="feature-text">
+              <strong>DuPont™ Corian® Exclusive</strong>
+              <span>Only North American partner for architectural wall surfaces</span>
+            </div>
+          </li>
+          <li>
+            <div class="feature-icon">◈</div>
+            <div class="feature-text">
+              <strong>3 US Patents · Sole-Source</strong>
+              <span>No approved equals. Protected through 2044.</span>
+            </div>
+          </li>
+          <li>
+            <div class="feature-icon">✦</div>
+            <div class="feature-text">
+              <strong>Standard or Illuminated</strong>
+              <span>Glacier White Corian backlights with a warm translucent glow</span>
+            </div>
+          </li>
+        </ul>
+        <div class="system-badge">
+          <div class="system-badge-dot"></div>
+          GREENGUARD · NSF/FDA · Antimicrobial · Exterior-Rated
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 5 — THREE PATHS CTA
+       ═══════════════════════════════════════════ -->
+  <section class="section-paths" id="paths">
+    <div class="paths-header fade-up">
+      <div class="section-label">Ready?</div>
+      <h2>Three ways to start</h2>
+      <p>Every project begins here.</p>
+    </div>
+    <div class="paths-grid">
+      <a class="path-card fade-up" href="#">
+        <div class="path-card-icon">◎</div>
+        <h3>Design Library</h3>
+        <p>30+ named, spec-ready patterns. Filter by application, sector, or illuminated. Pick one and spec it.</p>
+        <div class="path-card-link">Browse Designs →</div>
+      </a>
+      <a class="path-card fade-up" href="#">
+        <div class="path-card-icon">✦</div>
+        <h3>MakeReal</h3>
+        <p>Configure dimensions. Generate a design with AI. Get shop drawings and a spec in minutes.</p>
+        <div class="path-card-link">Configure &amp; Generate →</div>
+      </a>
+      <a class="path-card fade-up" href="#">
+        <div class="path-card-icon">◆</div>
+        <h3>Studio</h3>
+        <p>Too complex for digital. Bring us the challenge — sculptural ceilings, fin facades, one-of-one solutions.</p>
+        <div class="path-card-link">Send Us the Challenge →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-logo">M<span>|</span>R WALLS</div>
+    <div class="footer-copy">© 2026 MR Walls. DuPont™ and Corian® are registered trademarks of DuPont.</div>
+    <ul class="footer-links">
+      <li>Privacy</li>
+      <li>Terms</li>
+      <li>Contact</li>
+    </ul>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════ -->
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navItems = document.getElementById('navItems');
+    navToggle.addEventListener('click', () => {
+      navItems.classList.toggle('open');
+    });
+
+    // Close mobile nav on link click
+    navItems.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navItems.classList.remove('open');
+      });
+    });
+
+    // Scroll reveal (Intersection Observer)
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger siblings
+          const delay = Array.from(entry.target.parentElement.children)
+            .filter(el => el.classList.contains('fade-up'))
+            .indexOf(entry.target) * 80;
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Nav background on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        nav.style.background = 'rgba(10,10,10,0.95)';
+      } else {
+        nav.style.background = 'rgba(10,10,10,0.85)';
+      }
+    });
+  </script>
+</body>
+</html>
