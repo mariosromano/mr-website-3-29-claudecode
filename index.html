@@ -7,6 +7,7 @@
 <meta name="description" content="CNC-carved DuPont™ Corian® architectural surfaces. Patented interlocking system. No joints. No grout.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_1920/v1765939772/Lake_Backlight_Feature_Wall_with_Model_touch_bdzoxn.jpg">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -18,6 +19,7 @@
     --dim: rgba(255,255,255,0.06);
     --border: rgba(255,255,255,0.08);
     --glow: rgba(255, 220, 160, 0.15);
+    --section-pad: 110px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,6 +39,17 @@
   }
 
   a { color: inherit; text-decoration: none; }
+
+  /* Respect reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .fade-up { opacity: 1; transform: none; }
+    .hero-image { transform: none !important; }
+  }
 
   /* ═══════════════════════════════════════════
      NAV BAR
@@ -73,7 +86,7 @@
   }
   .nav-items li {
     font-size: 13px;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
     color: var(--mid);
     cursor: pointer;
     transition: color 0.2s;
@@ -109,6 +122,7 @@
     cursor: pointer;
     transition: all 0.2s;
     border: none;
+    display: inline-block;
   }
   .nav-cta:hover {
     background: var(--accent);
@@ -144,11 +158,13 @@
   }
   .hero-image {
     position: absolute;
-    inset: 0;
+    inset: -20% 0 0 0;
+    height: 120%;
     background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_1920/v1765939772/Lake_Backlight_Feature_Wall_with_Model_touch_bdzoxn.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    will-change: transform;
   }
   .hero-image::after {
     content: '';
@@ -239,7 +255,7 @@
      SECTION 2 — THE ROUTER
      ═══════════════════════════════════════════ */
   .section-router {
-    padding: 80px 48px;
+    padding: var(--section-pad) 48px;
     border-bottom: 1px solid var(--border);
     position: relative;
   }
@@ -273,11 +289,13 @@
     border-radius: 4px;
     cursor: pointer;
     border: 1px solid var(--border);
-    transition: border-color 0.3s, transform 0.3s;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    display: block;
   }
   .router-tile:hover {
     border-color: rgba(200,184,154,0.25);
     transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
   }
   .router-tile-img {
     position: absolute;
@@ -294,7 +312,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(10,10,10,0.3);
+    background: rgba(10,10,10,0.35);
     transition: background 0.3s;
   }
   .router-tile:hover .router-tile-img::after {
@@ -354,7 +372,12 @@
   }
 
   .router-tile.healthcare-tile {
-    border-color: rgba(200,184,154,0.15);
+    border-color: rgba(200,184,154,0.2);
+    box-shadow: inset 0 0 40px rgba(200,184,154,0.06);
+  }
+  .router-tile.healthcare-tile:hover {
+    border-color: rgba(200,184,154,0.35);
+    box-shadow: inset 0 0 40px rgba(200,184,154,0.06), 0 12px 40px rgba(0,0,0,0.4);
   }
   .router-tile.healthcare-tile .router-tile-name::before {
     content: '◈ ';
@@ -382,12 +405,20 @@
     font-weight: 500;
     flex-shrink: 0;
   }
+  .proof-track-wrapper {
+    overflow: hidden;
+    flex: 1;
+  }
   .proof-track {
     display: flex;
     align-items: center;
     gap: 48px;
     flex-wrap: nowrap;
-    animation: scroll-proof 30s linear infinite;
+    animation: scroll-proof 35s linear infinite;
+    width: max-content;
+  }
+  .section-proof:hover .proof-track {
+    animation-play-state: paused;
   }
   .proof-name {
     font-size: 13px;
@@ -416,7 +447,7 @@
      SECTION 4 — THE SYSTEM
      ═══════════════════════════════════════════ */
   .section-system {
-    padding: 80px 48px;
+    padding: var(--section-pad) 48px;
     border-bottom: 1px solid var(--border);
     position: relative;
   }
@@ -431,7 +462,7 @@
     max-height: 540px;
     background: var(--dim);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 8px;
     position: relative;
     overflow: hidden;
   }
@@ -441,6 +472,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 7px;
   }
 
   .system-text .section-label {
@@ -454,17 +486,17 @@
   }
   .system-text h3 {
     font-family: 'Instrument Serif', serif;
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 400;
     line-height: 1.25;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
     letter-spacing: -0.01em;
   }
   .system-features {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
   }
   .system-features li {
     display: flex;
@@ -474,6 +506,7 @@
     color: var(--warm-white);
     letter-spacing: 0.02em;
   }
+  .system-features li.fade-up { transition-duration: 0.5s; }
   .feature-icon {
     width: 32px;
     height: 32px;
@@ -501,28 +534,33 @@
   .system-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 32px;
-    padding: 10px 18px;
-    border: 1px solid rgba(200,184,154,0.15);
-    border-radius: 3px;
+    gap: 10px;
+    margin-top: 36px;
+    padding: 12px 20px;
+    border: 1px solid rgba(200,184,154,0.2);
+    border-radius: 4px;
     font-size: 11px;
     letter-spacing: 0.08em;
     color: var(--accent);
+    background: rgba(200,184,154,0.03);
   }
   .system-badge-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background: var(--accent);
-    opacity: 0.5;
+    animation: badge-pulse 2s ease-in-out infinite;
+  }
+  @keyframes badge-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
   }
 
   /* ═══════════════════════════════════════════
      SECTION 5 — THREE PATHS CTA
      ═══════════════════════════════════════════ */
   .section-paths {
-    padding: 80px 48px 100px;
+    padding: var(--section-pad) 48px 120px;
     position: relative;
   }
   .paths-header {
@@ -562,12 +600,29 @@
     padding: 48px 40px;
     border: 1px solid var(--border);
     border-radius: 6px;
-    background: var(--dim);
     text-align: center;
     cursor: pointer;
     transition: all 0.35s;
     position: relative;
     overflow: hidden;
+    display: block;
+  }
+  .path-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    transition: opacity 0.4s;
+  }
+  .path-card-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.6), rgba(10,10,10,0.85));
+  }
+  .path-card:hover .path-card-bg {
+    opacity: 0.3;
   }
   .path-card::before {
     content: '';
@@ -576,11 +631,13 @@
     background: radial-gradient(ellipse at center bottom, var(--glow), transparent 80%);
     opacity: 0;
     transition: opacity 0.4s;
+    z-index: 1;
   }
   .path-card:hover::before { opacity: 1; }
   .path-card:hover {
     border-color: rgba(200,184,154,0.25);
     transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
   }
   .path-card-icon {
     width: 56px;
@@ -594,7 +651,7 @@
     font-size: 20px;
     color: var(--accent);
     position: relative;
-    z-index: 1;
+    z-index: 2;
     transition: border-color 0.3s;
   }
   .path-card:hover .path-card-icon {
@@ -605,32 +662,40 @@
     font-weight: 400;
     margin-bottom: 10px;
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
   .path-card p {
     font-size: 13px;
     color: var(--mid);
     line-height: 1.6;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 280px;
     margin: 0 auto;
   }
-  .path-card-link {
+  .path-card-cta {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 24px;
+    margin-top: 28px;
     font-size: 12px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--accent);
     position: relative;
-    z-index: 1;
+    z-index: 2;
     font-weight: 500;
-    transition: gap 0.3s;
+    padding: 10px 20px;
+    border: 1px solid rgba(200,184,154,0.2);
+    border-radius: 3px;
+    transition: all 0.3s;
+    background: none;
   }
-  .path-card:hover .path-card-link { gap: 10px; }
+  .path-card:hover .path-card-cta {
+    border-color: rgba(200,184,154,0.4);
+    background: rgba(200,184,154,0.06);
+    gap: 10px;
+  }
 
   /* ═══════════════════════════════════════════
      FOOTER
@@ -642,6 +707,11 @@
     align-items: center;
     justify-content: space-between;
   }
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
   .footer-logo {
     font-family: 'DM Sans', sans-serif;
     font-weight: 600;
@@ -650,10 +720,16 @@
     color: var(--mid);
   }
   .footer-logo span { color: rgba(255,255,255,0.2); }
+  .footer-location {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.06em;
+  }
   .footer-copy {
     font-size: 11px;
     color: rgba(255,255,255,0.2);
     letter-spacing: 0.04em;
+    text-align: center;
   }
   .footer-links {
     display: flex;
@@ -675,7 +751,7 @@
   .fade-up {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   }
   .fade-up.visible {
     opacity: 1;
@@ -686,6 +762,7 @@
      RESPONSIVE
      ═══════════════════════════════════════════ */
   @media (max-width: 1024px) {
+    :root { --section-pad: 80px; }
     .system-layout {
       grid-template-columns: 1fr;
       gap: 40px;
@@ -697,6 +774,7 @@
   }
 
   @media (max-width: 768px) {
+    :root { --section-pad: 56px; }
     .nav {
       padding: 16px 24px;
     }
@@ -725,7 +803,7 @@
     }
     .hero-tagline { font-size: 32px; }
 
-    .section-router { padding: 48px 24px; }
+    .section-router { padding: var(--section-pad) 24px; }
     .section-router-header {
       flex-direction: column;
       align-items: flex-start;
@@ -740,14 +818,14 @@
     .section-proof {
       padding: 32px 24px;
       flex-direction: column;
-      gap: 24px;
+      gap: 16px;
       align-items: flex-start;
     }
 
-    .section-system { padding: 48px 24px; }
+    .section-system { padding: var(--section-pad) 24px; }
     .system-text h3 { font-size: 26px; }
 
-    .section-paths { padding: 48px 24px 64px; }
+    .section-paths { padding: var(--section-pad) 24px 64px; }
     .paths-grid {
       grid-template-columns: 1fr;
       gap: 16px;
@@ -761,6 +839,7 @@
       gap: 16px;
       text-align: center;
     }
+    .footer-left { align-items: center; }
   }
 
   @media (max-width: 480px) {
@@ -775,17 +854,17 @@
 
   <!-- NAV BAR -->
   <nav class="nav" id="nav">
-    <a href="#" class="nav-logo">M<span>|</span>R WALLS</a>
+    <a href="#hero" class="nav-logo">M<span>|</span>R WALLS</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-items" id="navItems">
       <li><a href="#applications"><span class="nav-number">01</span> Applications</a></li>
-      <li><a href="#system"><span class="nav-number">02</span> The Material</a></li>
-      <li><a href="#system"><span class="nav-number">03</span> Projects</a></li>
-      <li><a href="#paths"><span class="nav-number">04</span> Design Library</a></li>
-      <li><a href="#paths"><span class="nav-number">05</span> MakeReal</a></li>
-      <li><a href="#paths"><span class="nav-number">06</span> Studio</a></li>
+      <li><a href="#system"><span class="nav-number">02</span> The System</a></li>
+      <li><a href="#projects"><span class="nav-number">03</span> Projects</a></li>
+      <li><a href="/designs"><span class="nav-number">04</span> Design Library</a></li>
+      <li><a href="/makereal"><span class="nav-number">05</span> MakeReal</a></li>
+      <li><a href="/studio"><span class="nav-number">06</span> Studio</a></li>
     </ul>
     <a href="#paths" class="nav-cta">Contact</a>
   </nav>
@@ -794,7 +873,7 @@
        SECTION 1 — HERO
        ═══════════════════════════════════════════ -->
   <section class="section-hero" id="hero">
-    <div class="hero-image"></div>
+    <div class="hero-image" id="heroImage"></div>
     <div class="hero-glow"></div>
     <div class="hero-content">
       <div class="hero-label">M|R Walls</div>
@@ -817,7 +896,7 @@
     </div>
     <div class="router-grid">
       <a class="router-tile fade-up" href="#">
-        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769212741/flame-hospitality_h9crvd.png')"></div>
+        <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769212741/flame-hospitality_h9crvd.png"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
           <div class="router-tile-name">Elevator Lobbies</div>
@@ -826,7 +905,7 @@
         <div class="router-tile-arrow">→</div>
       </a>
       <a class="router-tile fade-up" href="#">
-        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769147362/billow-backlight_w4hjru.jpg')"></div>
+        <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769147362/billow-backlight_w4hjru.jpg"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
           <div class="router-tile-name">Feature Walls</div>
@@ -835,7 +914,7 @@
         <div class="router-tile-arrow">→</div>
       </a>
       <a class="router-tile fade-up" href="#">
-        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1765771518/blue_-facade-_soldier-VA_-_Large_rc45wv.png')"></div>
+        <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1765771518/blue_-facade-_soldier-VA_-_Large_rc45wv.png"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
           <div class="router-tile-name">Facades & Exteriors</div>
@@ -844,7 +923,7 @@
         <div class="router-tile-arrow">→</div>
       </a>
       <a class="router-tile fade-up" href="#">
-        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1765939772/Morongo_Casino_-_Medium_w9ymlt.jpg')"></div>
+        <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1765939772/Morongo_Casino_-_Medium_w9ymlt.jpg"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
           <div class="router-tile-name">Ceilings</div>
@@ -853,7 +932,7 @@
         <div class="router-tile-arrow">→</div>
       </a>
       <a class="router-tile healthcare-tile fade-up" href="#">
-        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Seattle-V2-tile-02_bvcqwc.png')"></div>
+        <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Seattle-V2-tile-02_bvcqwc.png"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
           <div class="router-tile-name">Healthcare</div>
@@ -862,7 +941,7 @@
         <div class="router-tile-arrow">→</div>
       </a>
       <a class="router-tile fade-up" href="#">
-        <div class="router-tile-img" style="background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Brick_waterfeature_05_copy_kewkyh.png')"></div>
+        <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Brick_waterfeature_05_copy_kewkyh.png"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
           <div class="router-tile-name">Water Features</div>
@@ -876,37 +955,39 @@
   <!-- ═══════════════════════════════════════════
        SECTION 3 — PROOF STRIP
        ═══════════════════════════════════════════ -->
-  <section class="section-proof">
+  <section class="section-proof" id="projects">
     <div class="proof-label">Installed at</div>
-    <div class="proof-track">
-      <span class="proof-name">LAX</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">Mayo Clinic</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">Crypto.com Arena</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">Jefferson Health</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">TikTok Nashville</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">Christ Journey Church</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">University of Wisconsin</span>
-      <div class="proof-divider"></div>
-      <!-- Duplicate for seamless loop -->
-      <span class="proof-name">LAX</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">Mayo Clinic</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">Crypto.com Arena</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">Jefferson Health</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">TikTok Nashville</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">Christ Journey Church</span>
-      <div class="proof-divider"></div>
-      <span class="proof-name">University of Wisconsin</span>
+    <div class="proof-track-wrapper">
+      <div class="proof-track">
+        <span class="proof-name">LAX</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">Mayo Clinic</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">Crypto.com Arena</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">Jefferson Health</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">TikTok Nashville</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">Christ Journey Church</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">University of Wisconsin</span>
+        <div class="proof-divider"></div>
+        <!-- Duplicate set for seamless loop -->
+        <span class="proof-name">LAX</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">Mayo Clinic</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">Crypto.com Arena</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">Jefferson Health</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">TikTok Nashville</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">Christ Journey Church</span>
+        <div class="proof-divider"></div>
+        <span class="proof-name">University of Wisconsin</span>
+      </div>
     </div>
   </section>
 
@@ -915,30 +996,28 @@
        ═══════════════════════════════════════════ -->
   <section class="section-system" id="system">
     <div class="system-layout">
-      <div class="system-visual fade-up">
-        <video autoplay loop muted playsinline>
-          <source src="https://res.cloudinary.com/dtlodxxio/video/upload/q_auto,w_720/v1765772971/install_MR-LAX_720_-_puzzle_video_-_720_x_1280_m2ewcs.mp4" type="video/mp4">
-        </video>
+      <div class="system-visual fade-up" id="systemVisual">
+        <!-- Video lazy-loaded via JS when near viewport -->
       </div>
-      <div class="system-text fade-up">
-        <div class="section-label">The System</div>
-        <h3>CNC-carved. Interlocking.<br>No joints. No grout.<br>No field cutting.</h3>
+      <div class="system-text">
+        <div class="section-label fade-up">The System</div>
+        <h3 class="fade-up">CNC-carved. Interlocking.<br>No joints. No grout.<br>No field cutting.</h3>
         <ul class="system-features">
-          <li>
+          <li class="fade-up">
             <div class="feature-icon">◇</div>
             <div class="feature-text">
               <strong>DuPont™ Corian® Exclusive</strong>
               <span>Only North American partner for architectural wall surfaces</span>
             </div>
           </li>
-          <li>
+          <li class="fade-up">
             <div class="feature-icon">◈</div>
             <div class="feature-text">
               <strong>3 US Patents · Sole-Source</strong>
               <span>No approved equals. Protected through 2044.</span>
             </div>
           </li>
-          <li>
+          <li class="fade-up">
             <div class="feature-icon">✦</div>
             <div class="feature-text">
               <strong>Standard or Illuminated</strong>
@@ -946,7 +1025,7 @@
             </div>
           </li>
         </ul>
-        <div class="system-badge">
+        <div class="system-badge fade-up">
           <div class="system-badge-dot"></div>
           GREENGUARD · NSF/FDA · Antimicrobial · Exterior-Rated
         </div>
@@ -964,30 +1043,36 @@
       <p>Every project begins here.</p>
     </div>
     <div class="paths-grid">
-      <a class="path-card fade-up" href="#">
+      <a class="path-card fade-up" href="/designs">
+        <div class="path-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_400/v1769147362/billow-backlight_w4hjru.jpg"></div>
         <div class="path-card-icon">◎</div>
         <h3>Design Library</h3>
         <p>30+ named, spec-ready patterns. Filter by application, sector, or illuminated. Pick one and spec it.</p>
-        <div class="path-card-link">Browse Designs →</div>
+        <div class="path-card-cta">Browse Designs →</div>
       </a>
-      <a class="path-card fade-up" href="#">
+      <a class="path-card fade-up" href="/makereal">
+        <div class="path-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_400/v1769147350/Bloom-free_reo20n.jpg"></div>
         <div class="path-card-icon">✦</div>
         <h3>MakeReal</h3>
         <p>Configure dimensions. Generate a design with AI. Get shop drawings and a spec in minutes.</p>
-        <div class="path-card-link">Configure &amp; Generate →</div>
+        <div class="path-card-cta">Configure &amp; Generate →</div>
       </a>
-      <a class="path-card fade-up" href="#">
+      <a class="path-card fade-up" href="/studio">
+        <div class="path-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_400/v1769147366/Fingerprint_-_Large_udpxci.jpg"></div>
         <div class="path-card-icon">◆</div>
         <h3>Studio</h3>
         <p>Too complex for digital. Bring us the challenge — sculptural ceilings, fin facades, one-of-one solutions.</p>
-        <div class="path-card-link">Send Us the Challenge →</div>
+        <div class="path-card-cta">Send Us the Challenge →</div>
       </a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer class="site-footer">
-    <div class="footer-logo">M<span>|</span>R WALLS</div>
+    <div class="footer-left">
+      <div class="footer-logo">M<span>|</span>R WALLS</div>
+      <div class="footer-location">Los Angeles, California</div>
+    </div>
     <div class="footer-copy">© 2026 MR Walls. DuPont™ and Corian® are registered trademarks of DuPont.</div>
     <ul class="footer-links">
       <li>Privacy</li>
@@ -1006,41 +1091,78 @@
     navToggle.addEventListener('click', () => {
       navItems.classList.toggle('open');
     });
-
-    // Close mobile nav on link click
     navItems.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navItems.classList.remove('open');
-      });
+      link.addEventListener('click', () => navItems.classList.remove('open'));
     });
 
-    // Scroll reveal (Intersection Observer)
+    // Hero parallax
+    const heroImage = document.getElementById('heroImage');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReduced) {
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const heroH = document.querySelector('.section-hero').offsetHeight;
+        if (scrollY < heroH) {
+          heroImage.style.transform = `translateY(${scrollY * 0.35}px)`;
+        }
+      }, { passive: true });
+    }
+
+    // Scroll reveal with stagger
     const fadeEls = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Stagger siblings
-          const delay = Array.from(entry.target.parentElement.children)
-            .filter(el => el.classList.contains('fade-up'))
-            .indexOf(entry.target) * 80;
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, delay);
+          const siblings = Array.from(entry.target.parentElement.children)
+            .filter(el => el.classList.contains('fade-up'));
+          const idx = siblings.indexOf(entry.target);
+          const delay = idx * 100;
+          setTimeout(() => entry.target.classList.add('visible'), delay);
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
     fadeEls.forEach(el => observer.observe(el));
+
+    // Lazy-load images (below the fold)
+    const lazyImgs = document.querySelectorAll('[data-bg]');
+    const imgObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          el.style.backgroundImage = `url('${el.dataset.bg}')`;
+          imgObserver.unobserve(el);
+        }
+      });
+    }, { rootMargin: '200px' });
+    lazyImgs.forEach(el => imgObserver.observe(el));
+
+    // Lazy-load video when System section approaches viewport
+    const systemVisual = document.getElementById('systemVisual');
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = document.createElement('video');
+          video.autoplay = true;
+          video.loop = true;
+          video.muted = true;
+          video.playsInline = true;
+          video.innerHTML = '<source src="https://res.cloudinary.com/dtlodxxio/video/upload/q_auto,w_720/v1765772971/install_MR-LAX_720_-_puzzle_video_-_720_x_1280_m2ewcs.mp4" type="video/mp4">';
+          systemVisual.appendChild(video);
+          videoObserver.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '400px' });
+    videoObserver.observe(systemVisual);
 
     // Nav background on scroll
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 80) {
-        nav.style.background = 'rgba(10,10,10,0.95)';
-      } else {
-        nav.style.background = 'rgba(10,10,10,0.85)';
-      }
-    });
+      nav.style.background = window.scrollY > 80
+        ? 'rgba(10,10,10,0.95)'
+        : 'rgba(10,10,10,0.85)';
+    }, { passive: true });
   </script>
 </body>
 </html>
