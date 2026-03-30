@@ -9,147 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_1920/v1765939772/Lake_Backlight_Feature_Wall_with_Model_touch_bdzoxn.jpg">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared/styles.css">
 <style>
-  :root {
-    --black: #0a0a0a;
-    --white: #f5f5f0;
-    --warm-white: #e8e4dc;
-    --mid: #888;
-    --accent: #c8b89a;
-    --dim: rgba(255,255,255,0.06);
-    --border: rgba(255,255,255,0.08);
-    --glow: rgba(255, 220, 160, 0.15);
-    --section-pad: 110px;
-  }
+  /* ═══ HOMEPAGE-ONLY STYLES ═══ */
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
-  a { color: inherit; text-decoration: none; }
-
-  /* Respect reduced-motion */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-    .fade-up { opacity: 1; transform: none; }
-    .hero-image { transform: none !important; }
-  }
-
-  /* ═══════════════════════════════════════════
-     NAV BAR
-     ═══════════════════════════════════════════ */
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 48px;
-    border-bottom: 1px solid var(--border);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    transition: background 0.3s;
-  }
-  .nav-logo {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 18px;
-    letter-spacing: 0.08em;
-    color: var(--white);
-    cursor: pointer;
-  }
-  .nav-logo span { color: var(--mid); }
-  .nav-items {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
-  .nav-items li {
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    color: var(--mid);
-    cursor: pointer;
-    transition: color 0.2s;
-    position: relative;
-  }
-  .nav-items li:hover { color: var(--white); }
-  .nav-items li::after {
-    content: '';
-    position: absolute;
-    bottom: -6px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transition: transform 0.3s;
-  }
-  .nav-items li:hover::after { transform: scaleX(1); }
-  .nav-number {
-    font-size: 9px;
-    color: rgba(200,184,154,0.4);
-    margin-right: 4px;
-    font-weight: 500;
-  }
-  .nav-cta {
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    color: var(--black);
-    background: var(--white);
-    padding: 8px 20px;
-    border-radius: 3px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: none;
-    display: inline-block;
-  }
-  .nav-cta:hover {
-    background: var(--accent);
-    color: var(--black);
-  }
-
-  /* Mobile menu */
-  .nav-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-    background: none;
-    border: none;
-  }
-  .nav-toggle span {
-    display: block;
-    width: 22px;
-    height: 1.5px;
-    background: var(--white);
-    transition: all 0.3s;
-  }
-
-  /* ═══════════════════════════════════════════
-     SECTION 1 — HERO
-     ═══════════════════════════════════════════ */
+  /* Hero */
   .section-hero {
     position: relative;
     height: 100vh;
@@ -163,7 +27,6 @@
     background-image: url('https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_1920/v1765939772/Lake_Backlight_Feature_Wall_with_Model_touch_bdzoxn.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     will-change: transform;
   }
   .hero-image::after {
@@ -172,7 +35,6 @@
     inset: 0;
     background: rgba(10,10,10,0.25);
   }
-
   .hero-glow {
     position: absolute;
     bottom: 0;
@@ -184,12 +46,9 @@
     pointer-events: none;
     z-index: 2;
   }
-
   .hero-content {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     padding: 0 48px 64px;
     z-index: 3;
     background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.4) 60%, transparent 100%);
@@ -213,10 +72,7 @@
     max-width: 700px;
     letter-spacing: -0.01em;
   }
-  .hero-tagline em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  .hero-tagline em { font-style: italic; color: var(--accent); }
   .hero-sub {
     font-size: 14px;
     color: var(--mid);
@@ -251,13 +107,10 @@
     50% { opacity: 0.8; }
   }
 
-  /* ═══════════════════════════════════════════
-     SECTION 2 — THE ROUTER
-     ═══════════════════════════════════════════ */
+  /* Router */
   .section-router {
     padding: var(--section-pad) 48px;
     border-bottom: 1px solid var(--border);
-    position: relative;
   }
   .section-router-header {
     display: flex;
@@ -276,7 +129,6 @@
     color: var(--mid);
     letter-spacing: 0.03em;
   }
-
   .router-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -302,12 +154,9 @@
     inset: 0;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     transition: transform 0.6s ease;
   }
-  .router-tile:hover .router-tile-img {
-    transform: scale(1.05);
-  }
+  .router-tile:hover .router-tile-img { transform: scale(1.05); }
   .router-tile-img::after {
     content: '';
     position: absolute;
@@ -315,10 +164,7 @@
     background: rgba(10,10,10,0.35);
     transition: background 0.3s;
   }
-  .router-tile:hover .router-tile-img::after {
-    background: rgba(10,10,10,0.15);
-  }
-
+  .router-tile:hover .router-tile-img::after { background: rgba(10,10,10,0.15); }
   .router-tile-glow {
     position: absolute;
     inset: 0;
@@ -328,12 +174,9 @@
     z-index: 1;
   }
   .router-tile:hover .router-tile-glow { opacity: 1; }
-
   .router-tile-content {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     padding: 24px;
     z-index: 2;
     background: linear-gradient(to top, rgba(10,10,10,0.9), transparent);
@@ -351,10 +194,8 @@
   }
   .router-tile-arrow {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 28px;
-    height: 28px;
+    top: 16px; right: 16px;
+    width: 28px; height: 28px;
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.15);
     display: flex;
@@ -366,11 +207,7 @@
     transition: opacity 0.3s, transform 0.3s;
     z-index: 3;
   }
-  .router-tile:hover .router-tile-arrow {
-    opacity: 1;
-    transform: translate(2px, -2px);
-  }
-
+  .router-tile:hover .router-tile-arrow { opacity: 1; transform: translate(2px,-2px); }
   .router-tile.healthcare-tile {
     border-color: rgba(200,184,154,0.2);
     box-shadow: inset 0 0 40px rgba(200,184,154,0.06);
@@ -385,9 +222,7 @@
     font-size: 10px;
   }
 
-  /* ═══════════════════════════════════════════
-     SECTION 3 — PROOF STRIP
-     ═══════════════════════════════════════════ */
+  /* Proof strip */
   .section-proof {
     padding: 40px 48px;
     border-bottom: 1px solid var(--border);
@@ -405,10 +240,7 @@
     font-weight: 500;
     flex-shrink: 0;
   }
-  .proof-track-wrapper {
-    overflow: hidden;
-    flex: 1;
-  }
+  .proof-track-wrapper { overflow: hidden; flex: 1; }
   .proof-track {
     display: flex;
     align-items: center;
@@ -417,9 +249,7 @@
     animation: scroll-proof 35s linear infinite;
     width: max-content;
   }
-  .section-proof:hover .proof-track {
-    animation-play-state: paused;
-  }
+  .section-proof:hover .proof-track { animation-play-state: paused; }
   .proof-name {
     font-size: 13px;
     letter-spacing: 0.08em;
@@ -431,25 +261,20 @@
   }
   .proof-name:hover { color: rgba(255,255,255,0.6); }
   .proof-divider {
-    width: 3px;
-    height: 3px;
+    width: 3px; height: 3px;
     border-radius: 50%;
     background: rgba(255,255,255,0.1);
     flex-shrink: 0;
   }
-
   @keyframes scroll-proof {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
 
-  /* ═══════════════════════════════════════════
-     SECTION 4 — THE SYSTEM
-     ═══════════════════════════════════════════ */
+  /* System section */
   .section-system {
     padding: var(--section-pad) 48px;
     border-bottom: 1px solid var(--border);
-    position: relative;
   }
   .system-layout {
     display: grid;
@@ -469,20 +294,9 @@
   .system-visual video {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     border-radius: 7px;
-  }
-
-  .system-text .section-label {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
-    font-weight: 500;
-    opacity: 0.7;
   }
   .system-text h3 {
     font-family: 'Instrument Serif', serif;
@@ -506,10 +320,8 @@
     color: var(--warm-white);
     letter-spacing: 0.02em;
   }
-  .system-features li.fade-up { transition-duration: 0.5s; }
   .feature-icon {
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     border-radius: 50%;
     border: 1px solid var(--border);
     display: flex;
@@ -520,17 +332,10 @@
     color: var(--accent);
     margin-top: 1px;
   }
-  .feature-text strong {
-    font-weight: 500;
-    display: block;
-    margin-bottom: 2px;
-  }
-  .feature-text span {
-    font-size: 12px;
-    color: var(--mid);
-    line-height: 1.5;
-  }
-
+  .feature-text strong { font-weight: 500; display: block; margin-bottom: 2px; }
+  .feature-text span { font-size: 12px; color: var(--mid); line-height: 1.5; }
+  .feature-text a { color: var(--accent); transition: opacity 0.2s; }
+  .feature-text a:hover { opacity: 0.7; }
   .system-badge {
     display: inline-flex;
     align-items: center;
@@ -545,8 +350,7 @@
     background: rgba(200,184,154,0.03);
   }
   .system-badge-dot {
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--accent);
     animation: badge-pulse 2s ease-in-out infinite;
@@ -556,25 +360,30 @@
     50% { opacity: 0.8; }
   }
 
-  /* ═══════════════════════════════════════════
-     SECTION 5 — THREE PATHS CTA
-     ═══════════════════════════════════════════ */
+  /* Featured Projects */
+  .section-featured {
+    padding: var(--section-pad) 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+  }
+  .featured-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    font-weight: 400;
+  }
+
+  /* Homepage Three Paths (different from inner-page CTAs) */
   .section-paths {
     padding: var(--section-pad) 48px 120px;
-    position: relative;
   }
   .paths-header {
     text-align: center;
     margin-bottom: 56px;
-  }
-  .paths-header .section-label {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
-    font-weight: 500;
-    opacity: 0.7;
   }
   .paths-header h2 {
     font-family: 'Instrument Serif', serif;
@@ -588,7 +397,6 @@
     color: var(--mid);
     letter-spacing: 0.03em;
   }
-
   .paths-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -621,9 +429,7 @@
     inset: 0;
     background: linear-gradient(to bottom, rgba(10,10,10,0.6), rgba(10,10,10,0.85));
   }
-  .path-card:hover .path-card-bg {
-    opacity: 0.3;
-  }
+  .path-card:hover .path-card-bg { opacity: 0.3; }
   .path-card::before {
     content: '';
     position: absolute;
@@ -640,8 +446,7 @@
     box-shadow: 0 16px 48px rgba(0,0,0,0.4);
   }
   .path-card-icon {
-    width: 56px;
-    height: 56px;
+    width: 56px; height: 56px;
     border-radius: 50%;
     border: 1px solid var(--border);
     margin: 0 auto 24px;
@@ -654,25 +459,9 @@
     z-index: 2;
     transition: border-color 0.3s;
   }
-  .path-card:hover .path-card-icon {
-    border-color: rgba(200,184,154,0.3);
-  }
-  .path-card h3 {
-    font-size: 20px;
-    font-weight: 400;
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 2;
-  }
-  .path-card p {
-    font-size: 13px;
-    color: var(--mid);
-    line-height: 1.6;
-    position: relative;
-    z-index: 2;
-    max-width: 280px;
-    margin: 0 auto;
-  }
+  .path-card:hover .path-card-icon { border-color: rgba(200,184,154,0.3); }
+  .path-card h3 { font-size: 20px; font-weight: 400; margin-bottom: 10px; position: relative; z-index: 2; }
+  .path-card p { font-size: 13px; color: var(--mid); line-height: 1.6; position: relative; z-index: 2; max-width: 280px; margin: 0 auto; }
   .path-card-cta {
     display: inline-flex;
     align-items: center;
@@ -689,7 +478,6 @@
     border: 1px solid rgba(200,184,154,0.2);
     border-radius: 3px;
     transition: all 0.3s;
-    background: none;
   }
   .path-card:hover .path-card-cta {
     border-color: rgba(200,184,154,0.4);
@@ -697,181 +485,37 @@
     gap: 10px;
   }
 
-  /* ═══════════════════════════════════════════
-     FOOTER
-     ═══════════════════════════════════════════ */
-  .site-footer {
-    padding: 48px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer-left {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .footer-logo {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: 0.08em;
-    color: var(--mid);
-  }
-  .footer-logo span { color: rgba(255,255,255,0.2); }
-  .footer-location {
-    font-size: 11px;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 0.06em;
-  }
-  .footer-copy {
-    font-size: 11px;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 0.04em;
-    text-align: center;
-  }
-  .footer-links {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-  }
-  .footer-links li {
-    font-size: 12px;
-    color: var(--mid);
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-  .footer-links li:hover { color: var(--white); }
-
-  /* ═══════════════════════════════════════════
-     SCROLL ANIMATIONS
-     ═══════════════════════════════════════════ */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ═══════════════════════════════════════════
-     RESPONSIVE
-     ═══════════════════════════════════════════ */
+  /* Homepage responsive */
   @media (max-width: 1024px) {
-    :root { --section-pad: 80px; }
-    .system-layout {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-    .system-visual {
-      max-height: 400px;
-      aspect-ratio: 16/9;
-    }
+    .system-layout { grid-template-columns: 1fr; gap: 40px; }
+    .system-visual { max-height: 400px; aspect-ratio: 16/9; }
   }
-
   @media (max-width: 768px) {
-    :root { --section-pad: 56px; }
-    .nav {
-      padding: 16px 24px;
-    }
-    .nav-items {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      flex-direction: column;
-      gap: 0;
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 24px;
-    }
-    .nav-items.open { display: flex; }
-    .nav-items li { padding: 12px 0; }
-    .nav-toggle { display: flex; }
-    .nav-cta { display: none; }
-
-    .hero-content {
-      padding: 0 24px 48px;
-      padding-top: 120px;
-    }
+    .hero-content { padding: 0 24px 48px; padding-top: 120px; }
     .hero-tagline { font-size: 32px; }
-
     .section-router { padding: var(--section-pad) 24px; }
-    .section-router-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 32px;
-    }
-    .router-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .section-proof {
-      padding: 32px 24px;
-      flex-direction: column;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
+    .section-router-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 32px; }
+    .router-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .section-proof { padding: 32px 24px; flex-direction: column; gap: 16px; align-items: flex-start; }
     .section-system { padding: var(--section-pad) 24px; }
     .system-text h3 { font-size: 26px; }
-
+    .section-featured { padding: var(--section-pad) 24px; }
+    .featured-header { flex-direction: column; align-items: flex-start; gap: 8px; }
     .section-paths { padding: var(--section-pad) 24px 64px; }
-    .paths-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
+    .paths-grid { grid-template-columns: 1fr; gap: 16px; }
     .path-card { padding: 32px 24px; }
     .paths-header h2 { font-size: 28px; }
-
-    .site-footer {
-      padding: 32px 24px;
-      flex-direction: column;
-      gap: 16px;
-      text-align: center;
-    }
-    .footer-left { align-items: center; }
   }
-
   @media (max-width: 480px) {
-    .router-grid {
-      grid-template-columns: 1fr;
-    }
+    .router-grid { grid-template-columns: 1fr; }
     .hero-tagline { font-size: 28px; }
   }
 </style>
 </head>
 <body>
+  <!-- Nav injected by components.js -->
 
-  <!-- NAV BAR -->
-  <nav class="nav" id="nav">
-    <a href="#hero" class="nav-logo">M<span>|</span>R WALLS</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-items" id="navItems">
-      <li><a href="#applications"><span class="nav-number">01</span> Applications</a></li>
-      <li><a href="#system"><span class="nav-number">02</span> The System</a></li>
-      <li><a href="#projects"><span class="nav-number">03</span> Projects</a></li>
-      <li><a href="/designs"><span class="nav-number">04</span> Design Library</a></li>
-      <li><a href="/makereal"><span class="nav-number">05</span> MakeReal</a></li>
-      <li><a href="/studio"><span class="nav-number">06</span> Studio</a></li>
-    </ul>
-    <a href="#paths" class="nav-cta">Contact</a>
-  </nav>
-
-  <!-- ═══════════════════════════════════════════
-       SECTION 1 — HERO
-       ═══════════════════════════════════════════ -->
+  <!-- SECTION 1 — HERO -->
   <section class="section-hero" id="hero">
     <div class="hero-image" id="heroImage"></div>
     <div class="hero-glow"></div>
@@ -886,16 +530,14 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       SECTION 2 — THE ROUTER
-       ═══════════════════════════════════════════ -->
+  <!-- SECTION 2 — ROUTER -->
   <section class="section-router" id="applications">
     <div class="section-router-header fade-up">
       <h2>What are you building?</h2>
       <p>Select your application →</p>
     </div>
     <div class="router-grid">
-      <a class="router-tile fade-up" href="#">
+      <a class="router-tile fade-up" href="/applications">
         <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769212741/flame-hospitality_h9crvd.png"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
@@ -904,7 +546,7 @@
         </div>
         <div class="router-tile-arrow">→</div>
       </a>
-      <a class="router-tile fade-up" href="#">
+      <a class="router-tile fade-up" href="/applications">
         <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769147362/billow-backlight_w4hjru.jpg"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
@@ -913,7 +555,7 @@
         </div>
         <div class="router-tile-arrow">→</div>
       </a>
-      <a class="router-tile fade-up" href="#">
+      <a class="router-tile fade-up" href="/applications">
         <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1765771518/blue_-facade-_soldier-VA_-_Large_rc45wv.png"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
@@ -922,7 +564,7 @@
         </div>
         <div class="router-tile-arrow">→</div>
       </a>
-      <a class="router-tile fade-up" href="#">
+      <a class="router-tile fade-up" href="/applications">
         <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1765939772/Morongo_Casino_-_Medium_w9ymlt.jpg"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
@@ -931,7 +573,7 @@
         </div>
         <div class="router-tile-arrow">→</div>
       </a>
-      <a class="router-tile healthcare-tile fade-up" href="#">
+      <a class="router-tile healthcare-tile fade-up" href="/healthcare">
         <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Seattle-V2-tile-02_bvcqwc.png"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
@@ -940,7 +582,7 @@
         </div>
         <div class="router-tile-arrow">→</div>
       </a>
-      <a class="router-tile fade-up" href="#">
+      <a class="router-tile fade-up" href="/applications">
         <div class="router-tile-img" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Brick_waterfeature_05_copy_kewkyh.png"></div>
         <div class="router-tile-glow"></div>
         <div class="router-tile-content">
@@ -952,53 +594,33 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       SECTION 3 — PROOF STRIP
-       ═══════════════════════════════════════════ -->
+  <!-- SECTION 3 — PROOF STRIP -->
   <section class="section-proof" id="projects">
     <div class="proof-label">Installed at</div>
     <div class="proof-track-wrapper">
       <div class="proof-track">
-        <span class="proof-name">LAX</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">Mayo Clinic</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">Crypto.com Arena</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">Jefferson Health</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">TikTok Nashville</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">Christ Journey Church</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">University of Wisconsin</span>
-        <div class="proof-divider"></div>
-        <!-- Duplicate set for seamless loop -->
-        <span class="proof-name">LAX</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">Mayo Clinic</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">Crypto.com Arena</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">Jefferson Health</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">TikTok Nashville</span>
-        <div class="proof-divider"></div>
-        <span class="proof-name">Christ Journey Church</span>
-        <div class="proof-divider"></div>
+        <span class="proof-name">LAX</span><div class="proof-divider"></div>
+        <span class="proof-name">Mayo Clinic</span><div class="proof-divider"></div>
+        <span class="proof-name">Crypto.com Arena</span><div class="proof-divider"></div>
+        <span class="proof-name">Jefferson Health</span><div class="proof-divider"></div>
+        <span class="proof-name">TikTok Nashville</span><div class="proof-divider"></div>
+        <span class="proof-name">Christ Journey Church</span><div class="proof-divider"></div>
+        <span class="proof-name">University of Wisconsin</span><div class="proof-divider"></div>
+        <span class="proof-name">LAX</span><div class="proof-divider"></div>
+        <span class="proof-name">Mayo Clinic</span><div class="proof-divider"></div>
+        <span class="proof-name">Crypto.com Arena</span><div class="proof-divider"></div>
+        <span class="proof-name">Jefferson Health</span><div class="proof-divider"></div>
+        <span class="proof-name">TikTok Nashville</span><div class="proof-divider"></div>
+        <span class="proof-name">Christ Journey Church</span><div class="proof-divider"></div>
         <span class="proof-name">University of Wisconsin</span>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       SECTION 4 — THE SYSTEM
-       ═══════════════════════════════════════════ -->
+  <!-- SECTION 4 — THE SYSTEM -->
   <section class="section-system" id="system">
     <div class="system-layout">
-      <div class="system-visual fade-up" id="systemVisual">
-        <!-- Video lazy-loaded via JS when near viewport -->
-      </div>
+      <div class="system-visual fade-up" id="systemVisual"></div>
       <div class="system-text">
         <div class="section-label fade-up">The System</div>
         <h3 class="fade-up">CNC-carved. Interlocking.<br>No joints. No grout.<br>No field cutting.</h3>
@@ -1020,7 +642,7 @@
           <li class="fade-up">
             <div class="feature-icon">✦</div>
             <div class="feature-text">
-              <strong>Standard or Illuminated</strong>
+              <strong><a href="/illuminated">Standard or ✦ Illuminated</a></strong>
               <span>Glacier White Corian backlights with a warm translucent glow</span>
             </div>
           </li>
@@ -1033,9 +655,52 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       SECTION 5 — THREE PATHS CTA
-       ═══════════════════════════════════════════ -->
+  <!-- SECTION 5 — FEATURED PROJECTS (NEW) -->
+  <section class="section-featured">
+    <div class="featured-header fade-up">
+      <div>
+        <div class="section-label">Proof</div>
+        <h2>The work speaks</h2>
+      </div>
+      <a href="/projects" class="section-link">See all 731 projects →</a>
+    </div>
+    <div class="card-grid card-grid-2">
+      <a class="image-card image-card-lg fade-up" href="/projects">
+        <div class="image-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/v1765939857/LAX_American_Airlines_-_Large_nlbf8w.jpg"></div>
+        <div class="image-card-content">
+          <div class="image-card-meta">Healthcare · 17,000 SF</div>
+          <div class="image-card-title">Jefferson Health</div>
+          <div class="image-card-desc">Largest InterlockPanel™ installation in a healthcare facility</div>
+        </div>
+      </a>
+      <a class="image-card image-card-lg fade-up" href="/projects">
+        <div class="image-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/v1765773871/Capital_One_Arena_-_Large_ule5uh.png"></div>
+        <div class="image-card-content">
+          <div class="image-card-meta">Backlit Interior · Sports</div>
+          <div class="image-card-title">Crypto.com Arena</div>
+          <div class="image-card-desc">Dramatic backlit Corian feature walls in premium hospitality suites</div>
+        </div>
+      </a>
+      <a class="image-card image-card-lg fade-up" href="/projects">
+        <div class="image-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/Fins_exterior_white_gcccvq.jpg"></div>
+        <div class="image-card-content">
+          <div class="image-card-meta">Exterior Facade · 180 mph wind-rated</div>
+          <div class="image-card-title">Hallandale Beach Fins</div>
+          <div class="image-card-desc">Hurricane-rated dimensional fin facade in South Florida</div>
+        </div>
+      </a>
+      <a class="image-card image-card-lg fade-up" href="/projects">
+        <div class="image-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/v1765939772/Morongo_Casino_-_Medium_w9ymlt.jpg"></div>
+        <div class="image-card-content">
+          <div class="image-card-meta">Custom Ceiling · Studio</div>
+          <div class="image-card-title">TikTok Nashville</div>
+          <div class="image-card-desc">One-of-one sculptural ceiling — a Studio project from concept to installation</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — THREE PATHS CTA (homepage-only version) -->
   <section class="section-paths" id="paths">
     <div class="paths-header fade-up">
       <div class="section-label">Ready?</div>
@@ -1067,78 +732,32 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-left">
-      <div class="footer-logo">M<span>|</span>R WALLS</div>
-      <div class="footer-location">Los Angeles, California</div>
-    </div>
-    <div class="footer-copy">© 2026 MR Walls. DuPont™ and Corian® are registered trademarks of DuPont.</div>
-    <ul class="footer-links">
-      <li>Privacy</li>
-      <li>Terms</li>
-      <li>Contact</li>
-    </ul>
-  </footer>
+  <!-- Footer injected by components.js -->
 
-  <!-- ═══════════════════════════════════════════
-       SCRIPTS
-       ═══════════════════════════════════════════ -->
-  <script>
-    // Mobile nav toggle
-    const navToggle = document.getElementById('navToggle');
-    const navItems = document.getElementById('navItems');
-    navToggle.addEventListener('click', () => {
-      navItems.classList.toggle('open');
-    });
-    navItems.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => navItems.classList.remove('open'));
+  <script type="module">
+    import { injectNav, injectFooter, initAnimations, initLazyImages } from '/shared/components.js';
+
+    // Homepage uses its own nav (no page CTAs — has Three Paths instead)
+    injectNav();
+    injectFooter();
+
+    requestAnimationFrame(() => {
+      initAnimations();
+      initLazyImages();
     });
 
     // Hero parallax
     const heroImage = document.getElementById('heroImage');
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!prefersReduced) {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
-        const heroH = document.querySelector('.section-hero').offsetHeight;
-        if (scrollY < heroH) {
+        if (scrollY < window.innerHeight) {
           heroImage.style.transform = `translateY(${scrollY * 0.35}px)`;
         }
       }, { passive: true });
     }
 
-    // Scroll reveal with stagger
-    const fadeEls = document.querySelectorAll('.fade-up');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const siblings = Array.from(entry.target.parentElement.children)
-            .filter(el => el.classList.contains('fade-up'));
-          const idx = siblings.indexOf(entry.target);
-          const delay = idx * 100;
-          setTimeout(() => entry.target.classList.add('visible'), delay);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    fadeEls.forEach(el => observer.observe(el));
-
-    // Lazy-load images (below the fold)
-    const lazyImgs = document.querySelectorAll('[data-bg]');
-    const imgObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          el.style.backgroundImage = `url('${el.dataset.bg}')`;
-          imgObserver.unobserve(el);
-        }
-      });
-    }, { rootMargin: '200px' });
-    lazyImgs.forEach(el => imgObserver.observe(el));
-
-    // Lazy-load video when System section approaches viewport
+    // Lazy video
     const systemVisual = document.getElementById('systemVisual');
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1155,14 +774,6 @@
       });
     }, { rootMargin: '400px' });
     videoObserver.observe(systemVisual);
-
-    // Nav background on scroll
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.style.background = window.scrollY > 80
-        ? 'rgba(10,10,10,0.95)'
-        : 'rgba(10,10,10,0.85)';
-    }, { passive: true });
   </script>
 </body>
 </html>

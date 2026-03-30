@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio — M|R Walls</title>
+<meta name="description" content="M|R Walls Studio — sculptural ceilings, fin facades, one-of-one solutions. Send us the challenge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared/styles.css">
+<style>
+  /* Studio brief copy section */
+  .studio-brief {
+    max-width: 700px;
+  }
+  .studio-brief p {
+    font-size: 16px;
+    color: var(--warm-white);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .studio-brief p:last-child { margin-bottom: 0; }
+  .studio-brief strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* Trophy card large */
+  .trophy-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .trophy-card {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    display: block;
+    cursor: pointer;
+  }
+  .trophy-card:hover {
+    border-color: rgba(200,184,154,0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .trophy-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+  }
+  .trophy-card:hover .trophy-card-bg { transform: scale(1.04); }
+  .trophy-card-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.2) 60%);
+  }
+  .trophy-card-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 32px;
+    z-index: 2;
+  }
+  .trophy-card-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .trophy-card-story {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  /* Bridge CTA */
+  .bridge-cta {
+    text-align: center;
+    padding: 80px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .bridge-cta h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .bridge-cta p {
+    font-size: 14px;
+    color: var(--mid);
+    margin-bottom: 32px;
+  }
+  .bridge-cta a.bridge-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border: 1px solid rgba(200,184,154,0.3);
+    padding: 12px 28px;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+  .bridge-cta a.bridge-btn:hover {
+    background: rgba(200,184,154,0.08);
+    border-color: var(--accent);
+    gap: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .trophy-grid { grid-template-columns: 1fr; }
+    .trophy-card { aspect-ratio: 16/9; }
+    .bridge-cta { padding: 56px 24px; }
+    .bridge-cta h3 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+  <!-- Nav injected by components.js -->
+
+  <!-- SECTION 1 — HERO (full-bleed) -->
+  <section class="page-hero-bleed">
+    <div class="hero-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_1920/v1769147366/Fingerprint_-_Large_udpxci.jpg"></div>
+    <div class="section-label fade-up">Studio</div>
+    <h1 class="fade-up">Send us the challenge</h1>
+    <p class="hero-desc fade-up">When the project is too complex for digital tools. Sculptural ceilings, fin facades, one-of-one solutions.</p>
+  </section>
+
+  <!-- SECTION 2 — WHAT STUDIO DOES -->
+  <section class="content-section">
+    <div class="section-label fade-up">What Studio does</div>
+    <div class="studio-brief">
+      <p class="fade-up"><strong>You bring a design problem. We solve it. Then we build it.</strong></p>
+      <p class="fade-up">Studio is not a commission in the art sense. It's engineering + design + fabrication. You describe what you need — a sculptural ceiling, a hurricane-rated fin facade, a carved wall that wraps around a curved staircase — and we figure out how to make it real in Corian.</p>
+      <p class="fade-up">We've solved problems like this before. The projects below prove it.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — PROVEN SOLUTIONS -->
+  <section class="content-section">
+    <div class="section-label fade-up">Proven solutions</div>
+    <h2 class="fade-up">Four systems. Hundreds of projects.</h2>
+    <p class="section-desc fade-up">These aren't product categories — they're proven classes of solutions. When your project fits one of these patterns, we already know how to engineer it.</p>
+    <div class="card-grid card-grid-4">
+      <div class="image-card fade-up">
+        <div class="image-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769212741/flame-hospitality_h9crvd.png"></div>
+        <div class="image-card-content">
+          <div class="image-card-title">Ribs</div>
+          <div class="image-card-desc">Linear parallel cuts creating rhythm and shadow depth</div>
+        </div>
+      </div>
+      <div class="image-card fade-up">
+        <div class="image-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Fins_exterior_white_gcccvq.jpg"></div>
+        <div class="image-card-content">
+          <div class="image-card-title">Fins</div>
+          <div class="image-card-desc">Dimensional vertical blades — facades, rain screens, sun shading</div>
+        </div>
+      </div>
+      <div class="image-card fade-up">
+        <div class="image-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/v1769147366/Fingerprint_-_Large_udpxci.jpg"></div>
+        <div class="image-card-content">
+          <div class="image-card-title">Slice</div>
+          <div class="image-card-desc">Geometric faceted panels — angular, precise, architectural</div>
+        </div>
+      </div>
+      <div class="image-card fade-up">
+        <div class="image-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_600/Seattle-V2-tile-02_bvcqwc.png"></div>
+        <div class="image-card-content">
+          <div class="image-card-title">Screen</div>
+          <div class="image-card-desc">Perforated and pierced patterns — light, air, and visual texture</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — TROPHY PROJECTS -->
+  <section class="content-section">
+    <div class="section-label fade-up">Trophy projects</div>
+    <h2 class="fade-up">The projects that prove capability</h2>
+    <p class="section-desc fade-up">Each of these was a Studio project — too complex for standard tools, engineered from scratch, fabricated and installed by our team.</p>
+    <div class="trophy-grid">
+      <a class="trophy-card fade-up" href="/projects">
+        <div class="trophy-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/v1765939772/Morongo_Casino_-_Medium_w9ymlt.jpg"></div>
+        <div class="trophy-card-content">
+          <div class="trophy-card-title">TikTok Nashville</div>
+          <div class="trophy-card-story">One-of-one sculptural ceiling. Custom CNC-carved Corian panels suspended in a flowing organic form. From concept sketch to installed ceiling in 14 weeks.</div>
+        </div>
+      </a>
+      <a class="trophy-card fade-up" href="/projects">
+        <div class="trophy-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/v1769147362/billow-backlight_w4hjru.jpg"></div>
+        <div class="trophy-card-content">
+          <div class="trophy-card-title">Christ Journey Church</div>
+          <div class="trophy-card-story">Backlit sculptural feature wall wrapping the entire worship space. Glacier White Corian with warm LED backlighting creates a transcendent atmosphere.</div>
+        </div>
+      </a>
+      <a class="trophy-card fade-up" href="/projects">
+        <div class="trophy-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/v1765939772/Morongo_Casino_-_Medium_w9ymlt.jpg"></div>
+        <div class="trophy-card-content">
+          <div class="trophy-card-title">Morongo Casino</div>
+          <div class="trophy-card-story">Massive carved ceiling spanning the casino floor. Thousands of interlocking Corian panels creating a continuous sculptural canopy overhead.</div>
+        </div>
+      </a>
+      <a class="trophy-card fade-up" href="/projects">
+        <div class="trophy-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/v1765771518/blue_-facade-_soldier-VA_-_Large_rc45wv.png"></div>
+        <div class="trophy-card-content">
+          <div class="trophy-card-title">VA Hospital — Fins Facade</div>
+          <div class="trophy-card-story">Hurricane-rated dimensional fin facade. Engineered for extreme wind loads and UV exposure. Exterior Corian rated for -40°F to 140°F.</div>
+        </div>
+      </a>
+      <a class="trophy-card fade-up" href="/projects">
+        <div class="trophy-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/Fins_exterior_white_gcccvq.jpg"></div>
+        <div class="trophy-card-content">
+          <div class="trophy-card-title">Hallandale Beach</div>
+          <div class="trophy-card-story">180 mph wind-rated fin facade in South Florida. Each fin individually engineered for hurricane-force conditions. Corian exterior rated and UV stable.</div>
+        </div>
+      </a>
+      <a class="trophy-card fade-up" href="/projects">
+        <div class="trophy-card-bg" data-bg="https://res.cloudinary.com/dtlodxxio/image/upload/q_auto,f_auto,w_800/v1769147366/Fingerprint_-_Large_udpxci.jpg"></div>
+        <div class="trophy-card-content">
+          <div class="trophy-card-title">SmithGroup DC</div>
+          <div class="trophy-card-story">Faceted Corian wall with precisely angled panels catching light differently throughout the day. A geometric sculpture doubling as an architectural surface.</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — HOW STUDIO WORKS -->
+  <section class="content-section">
+    <div class="section-label fade-up">Process</div>
+    <h2 class="fade-up">How Studio works</h2>
+    <p class="section-desc fade-up">Three steps. From your challenge to an installed solution.</p>
+    <div class="steps-row">
+      <div class="step-card fade-up">
+        <div class="step-number">01</div>
+        <h4>Send the Challenge</h4>
+        <p>Images, sketches, verbal concepts, dimensions — whatever you have. We start from where you are.</p>
+      </div>
+      <div class="step-card fade-up">
+        <div class="step-number">02</div>
+        <h4>We Design & Engineer</h4>
+        <p>3D visualization, structural feasibility, preliminary pricing. You see the solution before we cut a single panel.</p>
+      </div>
+      <div class="step-card fade-up">
+        <div class="step-number">03</div>
+        <h4>We Build & Deliver</h4>
+        <p>CNC fabrication, quality control, crating, and installation coordination. Shop to site.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — BRIDGE CTA -->
+  <div class="bridge-cta">
+    <h3 class="fade-up">Looking for something simpler?</h3>
+    <p class="fade-up">If your project fits a standard design, MakeReal can get you there in minutes.</p>
+    <a href="/makereal" class="bridge-btn fade-up">Go to MakeReal →</a>
+  </div>
+
+  <!-- Page CTAs + Footer injected by components.js -->
+
+  <script type="module">
+    import { initPage, initLazyImages } from '/shared/components.js';
+    initPage();
+
+    // Lazy-load the hero bleed background
+    const heroBg = document.querySelector('.hero-bg[data-bg]');
+    if (heroBg) {
+      heroBg.style.backgroundImage = `url('${heroBg.dataset.bg}')`;
+    }
+  </script>
+</body>
+</html>
