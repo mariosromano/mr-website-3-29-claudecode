@@ -156,21 +156,7 @@ export default function DesignsClient({ products, clickCounts }: DesignsClientPr
 
   return (
     <div style={styles.page}>
-      {/* ═══ NAV ═══ */}
-      <nav style={styles.nav}>
-        <a href="/" style={styles.navLogo}>
-          M<span style={{ color: '#888' }}>|</span>R WALLS
-        </a>
-        <div style={styles.navLinks}>
-          <a href="/applications" style={styles.navLink}>Applications</a>
-          <a href="/system" style={styles.navLink}>The System</a>
-          <a href="/projects" style={styles.navLink}>Projects</a>
-          <a href="/designs" style={{ ...styles.navLink, color: '#f5f5f0', borderBottom: '1px solid #c8b89a' }}>Design Library</a>
-          <a href="/makereal" style={styles.navLink}>MakeReal</a>
-          <a href="/studio" style={styles.navLink}>Studio</a>
-        </div>
-        <a href="/contact" style={styles.navCta}>Contact</a>
-      </nav>
+      {/* Nav provided by layout */}
 
       {/* ═══ HERO ═══ */}
       <header style={styles.hero}>
@@ -401,41 +387,7 @@ export default function DesignsClient({ products, clickCounts }: DesignsClientPr
         </div>
       )}
 
-      {/* ═══ PAGE CTAs ═══ */}
-      <section style={styles.ctaSection}>
-        <div style={styles.ctaLabel}>Ready to start?</div>
-        <div style={styles.ctaGrid}>
-          <a href="/makereal" style={styles.ctaCard}>
-            <div style={styles.ctaIcon}>◎</div>
-            <h3 style={styles.ctaTitle}>Configure Your Spec</h3>
-            <p style={styles.ctaDesc}>5-step configurator. Application, sector, design, color. Get CSI spec text in minutes.</p>
-          </a>
-          <a href="/contact" style={styles.ctaCard}>
-            <div style={styles.ctaIcon}>◇</div>
-            <h3 style={styles.ctaTitle}>Request a DFP</h3>
-            <p style={styles.ctaDesc}>Design Fabrication Proposal. Send us your project details and we&apos;ll engineer a solution.</p>
-          </a>
-          <a href="/contact" style={styles.ctaCard}>
-            <div style={styles.ctaIcon}>✦</div>
-            <h3 style={styles.ctaTitle}>Request a Sample</h3>
-            <p style={styles.ctaDesc}>Feel the material. See the carving. We&apos;ll ship a physical sample to your office.</p>
-          </a>
-        </div>
-      </section>
-
-      {/* ═══ FOOTER ═══ */}
-      <footer style={styles.footer}>
-        <div>
-          <div style={styles.footerLogo}>M<span style={{ color: 'rgba(255,255,255,0.2)' }}>|</span>R WALLS</div>
-          <div style={styles.footerLocation}>Los Angeles, California</div>
-        </div>
-        <div style={styles.footerCopy}>© 2026 MR Walls. DuPont™ and Corian® are registered trademarks of DuPont.</div>
-        <div style={styles.footerLinks}>
-          <a href="#" style={styles.footerLink}>Privacy</a>
-          <a href="#" style={styles.footerLink}>Terms</a>
-          <a href="/contact" style={styles.footerLink}>Contact</a>
-        </div>
-      </footer>
+      {/* CTAs and Footer provided by layout */}
     </div>
   );
 }
