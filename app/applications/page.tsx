@@ -28,7 +28,7 @@ export default function ApplicationsPage() {
         <Link href="/healthcare" className="healthcare-banner">
           <div
             className="healthcare-banner-bg"
-            style={{ backgroundImage: `url('${cloudinaryUrl('seattleV2', 1200)}')` }}
+            style={{ backgroundImage: `url('${cloudinaryUrl('billowBacklight', 1200)}')` }}
           />
           <div className="healthcare-banner-content">
             <div className="section-label">Healthcare</div>

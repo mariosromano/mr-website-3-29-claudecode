@@ -280,11 +280,11 @@ img { display: block; max-width: 100%; }
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(10,10,10,0.35);
+  background: rgba(10,10,10,0.2);
   transition: background 0.3s;
 }
 .image-card:hover .image-card-bg::after {
-  background: rgba(10,10,10,0.15);
+  background: rgba(10,10,10,0.08);
 }
 .image-card-content {
   position: absolute;
@@ -789,10 +789,7 @@ img { display: block; max-width: 100%; }
   top: 100%;
   left: 0;
   right: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 32px;
-  padding: 40px 48px;
+  padding: 0;
   background: rgba(10,10,10,0.97);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -803,6 +800,12 @@ img { display: block; max-width: 100%; }
 @keyframes megaFadeIn {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }
+}
+.mega-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding: 32px 48px;
 }
 .mega-col-header {
   font-size: 10px;
@@ -824,34 +827,62 @@ img { display: block; max-width: 100%; }
   color: var(--white);
   padding-left: 4px;
 }
-.mega-col-featured {
+
+/* Healthcare highlighted row at bottom of mega menu */
+.mega-healthcare-row {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.mega-healthcare-card {
-  display: block;
-  padding: 28px 24px;
-  border: 1px solid rgba(200,184,154,0.2);
-  border-radius: 6px;
-  background: var(--dim);
-  transition: all 0.3s;
-}
-.mega-healthcare-card:hover {
-  border-color: rgba(200,184,154,0.4);
-  transform: translateY(-2px);
-}
-.mega-healthcare-card h4 {
-  font-size: 15px;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 48px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--accent);
   font-weight: 500;
-  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+  transition: background 0.2s;
 }
-.mega-healthcare-card p {
-  font-size: 12px;
+.mega-healthcare-row:hover {
+  background: rgba(200,184,154,0.05);
+}
+.mega-healthcare-icon {
+  font-size: 14px;
+}
+.mega-healthcare-sub {
+  font-size: 11px;
   color: var(--mid);
-  line-height: 1.5;
-  margin-bottom: 12px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin-left: 4px;
 }
+.mega-healthcare-arrow {
+  margin-left: auto;
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+.mega-healthcare-row:hover .mega-healthcare-arrow {
+  transform: translateX(4px);
+}
+
+/* Mobile mega accordion */
+.mega-accordion {
+  list-style: none;
+}
+.mega-accordion-inner {
+  padding: 8px 0 8px 16px;
+}
+
+/* Mobile button to toggle mega */
+.mega-mobile-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--mid);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 8px;
+  line-height: 1;
+}
+
 .mega-badge {
   display: inline-block;
   font-size: 9px;
@@ -868,6 +899,9 @@ img { display: block; max-width: 100%; }
 /* Nav item with mega trigger */
 .nav-app-trigger {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 /* ═══════════════════════════════════════════
@@ -1016,12 +1050,23 @@ img { display: block; max-width: 100%; }
    MEGA MENU + CROSS-NAV + BANNER RESPONSIVE
    ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .mega-menu {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 24px;
-    position: static;
-    background: rgba(10,10,10,0.98);
+  /* Hide desktop mega menu on mobile */
+  .nav > .mega-menu {
+    display: none;
+  }
+  /* Show mobile toggle button */
+  .mega-mobile-btn {
+    display: inline-block;
+  }
+  /* Style the mobile accordion links */
+  .mega-accordion .mega-link {
+    font-size: 13px;
+    padding: 6px 0;
+  }
+  .mega-accordion .mega-healthcare-row {
+    padding: 8px 0;
+    border-top: none;
+    font-size: 13px;
   }
   .app-cross-nav {
     padding: 0 24px;

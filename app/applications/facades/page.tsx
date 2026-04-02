@@ -14,12 +14,12 @@ export const metadata = {
 const facadeSections = [
   {
     title: 'Facades',
-    desc: 'UV-stable carved panels for building exteriors. Exterior-rated Corian withstands -40°F to 140°F, hurricane-force winds, and decades of UV exposure without delamination or color shift.',
+    desc: 'UV-stable carved panels for building exteriors. Exterior-rated Corian withstands -40\u00b0F to 140\u00b0F, hurricane-force winds, and decades of UV exposure without delamination or color shift. InterlockPanel connections create seamless exterior surfaces at any scale.',
     imageKey: 'blueFacade' as const,
   },
   {
     title: 'Rain Screens',
-    desc: 'Ventilated cladding systems for moisture management. Corian rain screen panels mount on open-joint systems with full drainage and ventilation. Non-porous — water runs off, never absorbs.',
+    desc: 'Ventilated cladding systems for moisture management. Corian rain screen panels mount on open-joint systems with full drainage and ventilation. Non-porous \u2014 water runs off, never absorbs. Dimensional carved patterns add depth and shadow to building exteriors.',
     imageKey: 'finsExterior' as const,
   },
   {
@@ -29,7 +29,7 @@ const facadeSections = [
   },
   {
     title: 'Building Envelopes',
-    desc: 'Complete exterior wall systems integrating structure and surface. When the entire building skin needs to be a carved, sculptural surface — InterlockPanel scales to full building envelopes.',
+    desc: 'Complete exterior wall systems integrating structure and surface. When the entire building skin needs to be a carved, sculptural surface \u2014 not just a panel here and there \u2014 InterlockPanel scales to full building envelopes.',
     imageKey: 'blueFacade' as const,
   },
 ];
@@ -37,7 +37,7 @@ const facadeSections = [
 export default function FacadesPage() {
   const exteriorApps = getExteriorApplications();
   const exteriorProjects = projects.filter((p) =>
-    ['hallandale-beach-fins', 'va-hospital-facade', 'morongo-casino'].includes(p.slug)
+    ['hallandale-beach-fins', 'va-hospital-facade', 'morongo-casino', 'tiktok-nashville'].includes(p.slug)
   );
 
   return (
@@ -59,9 +59,9 @@ export default function FacadesPage() {
         <div className="badge-grid" style={{ marginTop: 40 }}>
           {[
             { icon: '\u25CE', title: '180 mph Wind-Rated', desc: 'Tested to withstand hurricane-force winds. Panels resist uplift, shear, and cyclic fatigue.' },
-            { icon: '\u25CB', title: '-40°F to 140°F', desc: 'Thermal stability across extreme temperature ranges with no warping, cracking, or delamination.' },
+            { icon: '\u25CB', title: '-40\u00b0F to 140\u00b0F', desc: 'Thermal stability across extreme temperature ranges with no warping, cracking, or delamination.' },
             { icon: '\u2726', title: 'UV Stable', desc: 'Decades of direct sun exposure with no color shift, chalking, or surface degradation.' },
-            { icon: '\u25C7', title: 'Zero Delamination', desc: 'Solid surface material — no layers to separate. Panel integrity maintained through freeze-thaw cycles.' },
+            { icon: '\u25C7', title: 'Zero Delamination', desc: 'Solid surface material \u2014 no layers to separate. Panel integrity maintained through freeze-thaw cycles.' },
             { icon: '\u25A3', title: 'NFPA Compliant', desc: 'Fire-rated for exterior cladding applications. Meets code requirements for non-combustible assemblies.' },
           ].map((cert) => (
             <div key={cert.title} className="badge-card">
@@ -73,7 +73,7 @@ export default function FacadesPage() {
         </div>
       </section>
 
-      {/* Sub-sections: Facades, Rain Screens, Canopies, Building Envelopes */}
+      {/* Sub-sections */}
       {facadeSections.map((section, i) => (
         <section key={section.title} className="content-section">
           <div className="section-label">Exterior</div>
@@ -126,7 +126,7 @@ export default function FacadesPage() {
                     {p.sector} &middot; {p.sqft} SF
                   </div>
                   <div className="image-card-title">{p.name}</div>
-                  <div className="image-card-desc">{p.designName}{p.illuminated ? ' · ✦ Illuminated' : ''}</div>
+                  <div className="image-card-desc">{p.designName}{p.illuminated ? ' \u00b7 \u2726 Illuminated' : ''}</div>
                 </div>
               </Link>
             ))}
@@ -136,6 +136,34 @@ export default function FacadesPage() {
           </Link>
         </section>
       )}
+
+      {/* Designs */}
+      <section className="content-section">
+        <div className="section-label">Designs</div>
+        <h2>Exterior designs</h2>
+        <p className="section-desc">CNC-carved patterns engineered for exterior environments.</p>
+        <div className="card-grid card-grid-4" style={{ marginTop: 40 }}>
+          {[
+            { imageKey: 'flameHospitality' as const, label: 'Flame' },
+            { imageKey: 'morongoCasino' as const, label: 'Wave' },
+            { imageKey: 'finsExterior' as const, label: 'Custom Fins' },
+          ].map((d) => (
+            <Link key={d.label} className="image-card" href="/designs">
+              <div
+                className="image-card-bg"
+                style={{ backgroundImage: `url('${cloudinaryUrl(d.imageKey, 400)}')` }}
+              />
+              <div className="image-card-content">
+                <div className="image-card-title">{d.label}</div>
+                <div className="image-card-desc">Design Library</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <Link href="/designs" className="section-link">
+          Browse full Design Library &rarr;
+        </Link>
+      </section>
 
       <PageCTAs />
     </>

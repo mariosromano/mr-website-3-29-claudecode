@@ -35,6 +35,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const megaTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -47,19 +48,20 @@ export default function Nav() {
     setMegaOpen(false);
   }, [pathname]);
 
-  const handleMegaEnter = () => {
+  const openMega = () => {
     if (megaTimeout.current) clearTimeout(megaTimeout.current);
     setMegaOpen(true);
   };
 
-  const handleMegaLeave = () => {
-    megaTimeout.current = setTimeout(() => setMegaOpen(false), 150);
+  const closeMega = () => {
+    megaTimeout.current = setTimeout(() => setMegaOpen(false), 120);
   };
 
   const activeKey = pathname.split('/').filter(Boolean)[0] || 'home';
 
   return (
     <nav
+      ref={navRef}
       className="nav"
       style={{ background: scrolled ? 'rgba(10,10,10,0.95)' : 'rgba(10,10,10,0.85)' }}
     >
@@ -80,27 +82,18 @@ export default function Nav() {
               <li
                 key={item.key}
                 className={`${activeKey === item.key ? 'active' : ''} nav-app-trigger`}
-                onMouseEnter={handleMegaEnter}
-                onMouseLeave={handleMegaLeave}
+                onMouseEnter={openMega}
+                onMouseLeave={closeMega}
               >
                 <Link href={item.href}>{item.label}</Link>
-
-                {/* Mobile accordion toggle */}
+                {/* Mobile: tap to expand */}
                 <button
-                  className="mega-mobile-toggle"
-                  onClick={(e) => { e.stopPropagation(); setMegaOpen(!megaOpen); }}
+                  className="mega-mobile-btn"
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMegaOpen(!megaOpen); }}
                   aria-label="Toggle applications menu"
-                  style={{
-                    display: 'none',
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--mid)',
-                    fontSize: 10,
-                    marginLeft: 6,
-                    cursor: 'pointer',
-                    padding: '4px 8px',
-                  }}
-                />
+                >
+                  {megaOpen ? '\u2212' : '+'}
+                </button>
               </li>
             );
           }
@@ -111,15 +104,40 @@ export default function Nav() {
           );
         })}
 
-        {/* Mega menu — renders inside nav-items on mobile, overlays on desktop */}
+        {/* Mobile mega accordion — inside nav-items so it shows when menu is open */}
         {megaOpen && (
-          <div
-            className="mega-menu"
-            onMouseEnter={handleMegaEnter}
-            onMouseLeave={handleMegaLeave}
-          >
+          <li className="mega-accordion">
+            <div className="mega-accordion-inner">
+              <div className="mega-col-header">Interior</div>
+              {interiorApps.map((app) => (
+                <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
+                  {app.name}
+                </Link>
+              ))}
+              <div className="mega-col-header" style={{ marginTop: 16 }}>Exterior</div>
+              {exteriorApps.map((app) => (
+                <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
+                  {app.name}
+                </Link>
+              ))}
+              <Link href="/healthcare" className="mega-healthcare-row" style={{ marginTop: 16 }}>
+                {'\u25C8'} Healthcare
+              </Link>
+            </div>
+          </li>
+        )}
+      </ul>
+
+      {/* Desktop mega menu — positioned below entire nav bar */}
+      {megaOpen && (
+        <div
+          className="mega-menu"
+          onMouseEnter={openMega}
+          onMouseLeave={closeMega}
+        >
+          <div className="mega-columns">
             <div>
-              <div className="mega-col-header">Interior Surfaces</div>
+              <div className="mega-col-header">Interior</div>
               {interiorApps.map((app) => (
                 <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
                   {app.name}
@@ -127,27 +145,23 @@ export default function Nav() {
               ))}
             </div>
             <div>
-              <div className="mega-col-header">Exterior Surfaces</div>
+              <div className="mega-col-header">Exterior</div>
               {exteriorApps.map((app) => (
                 <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
                   {app.name}
                 </Link>
               ))}
             </div>
-            <div className="mega-col-featured">
-              <Link href="/healthcare" className="mega-healthcare-card">
-                <h4>Healthcare</h4>
-                <p>Antimicrobial, zero-joint, backlit surfaces certified for clinical environments.</p>
-                <div>
-                  <span className="mega-badge">GREENGUARD Gold</span>
-                  <span className="mega-badge">Antimicrobial</span>
-                  <span className="mega-badge">Bleach-Safe</span>
-                </div>
-              </Link>
-            </div>
           </div>
-        )}
-      </ul>
+          <Link href="/healthcare" className="mega-healthcare-row">
+            <span className="mega-healthcare-icon">{'\u25C8'}</span>
+            <span>Healthcare</span>
+            <span className="mega-healthcare-sub">Antimicrobial &middot; Zero-Joint &middot; Bleach-Safe &middot; GREENGUARD Gold</span>
+            <span className="mega-healthcare-arrow">&rarr;</span>
+          </Link>
+        </div>
+      )}
+
       <Link href="/contact" className="nav-cta">Contact</Link>
     </nav>
   );
