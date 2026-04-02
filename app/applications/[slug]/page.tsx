@@ -1,13 +1,16 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { applications, getApplicationBySlug } from '@/lib/data/applications';
+import { applications, getApplicationBySlug, getInteriorApplications, getExteriorApplications } from '@/lib/data/applications';
 import { projects } from '@/lib/data/projects';
 import { cloudinaryUrl, ImageKey } from '@/lib/data/cloudinary';
 import PageCTAs from '@/components/PageCTAs';
 import HeroBleed from '@/components/HeroBleed';
+import AppCrossNav from '@/components/AppCrossNav';
 
 export function generateStaticParams() {
-  return applications.map((app) => ({ slug: app.slug }));
+  return applications
+    .filter((app) => app.slug !== 'facades')
+    .map((app) => ({ slug: app.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -35,12 +38,16 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
   const app = getApplicationBySlug(slug);
   if (!app) notFound();
 
+  const trackApps = app.track === 'interior' ? getInteriorApplications() : getExteriorApplications();
+
   const relatedProjects = projects.filter((p) =>
     app.relatedProjects.includes(p.slug)
   ).slice(0, 6);
 
   return (
     <>
+      <AppCrossNav apps={trackApps} currentSlug={slug} />
+
       <HeroBleed
         imageKey={app.imageKey}
         label="Application"

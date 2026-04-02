@@ -278,7 +278,7 @@ export default function HealthcarePage() {
             </div>
           </Link>
 
-          <Link href="/applications/reception-desks" className="image-card">
+          <Link href="/applications/reception" className="image-card">
             <div
               className="image-card-bg"
               style={{
@@ -286,7 +286,7 @@ export default function HealthcarePage() {
               }}
             />
             <div className="image-card-content">
-              <div className="image-card-title">Reception Desks</div>
+              <div className="image-card-title">Reception</div>
               <div className="image-card-desc">First-touch branded surfaces</div>
             </div>
           </Link>
@@ -304,20 +304,20 @@ export default function HealthcarePage() {
             </div>
           </Link>
 
-          <Link href="/applications/nurse-stations" className="image-card">
+          <Link href="/applications/hallway" className="image-card">
             <div
               className="image-card-bg"
               style={{
-                backgroundImage: `url('${cloudinaryUrl('seattleV2', 400)}')`,
+                backgroundImage: `url('${cloudinaryUrl('fingerprint', 400)}')`,
               }}
             />
             <div className="image-card-content">
-              <div className="image-card-title">Nurse Stations</div>
-              <div className="image-card-desc">Antimicrobial work surfaces</div>
+              <div className="image-card-title">Hallway</div>
+              <div className="image-card-desc">Seamless corridor surfaces</div>
             </div>
           </Link>
 
-          <Link href="/applications/mri-rooms" className="image-card">
+          <Link href="/applications/grand-entry" className="image-card">
             <div
               className="image-card-bg"
               style={{
@@ -325,8 +325,8 @@ export default function HealthcarePage() {
               }}
             />
             <div className="image-card-content">
-              <div className="image-card-title">MRI Rooms</div>
-              <div className="image-card-desc">Calming backlit environments</div>
+              <div className="image-card-title">Grand Entry</div>
+              <div className="image-card-desc">Backlit entrance statements</div>
             </div>
           </Link>
         </div>

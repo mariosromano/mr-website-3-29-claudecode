@@ -780,3 +780,260 @@ img { display: block; max-width: 100%; }
   .card-grid { grid-template-columns: 1fr; }
   .card-grid-4 { grid-template-columns: 1fr; }
 }
+
+/* ═══════════════════════════════════════════
+   MEGA MENU
+   ═══════════════════════════════════════════ */
+.mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  padding: 40px 48px;
+  background: rgba(10,10,10,0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  z-index: 99;
+  animation: megaFadeIn 0.2s ease;
+}
+@keyframes megaFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.mega-col-header {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+.mega-link {
+  display: block;
+  font-size: 14px;
+  color: var(--mid);
+  padding: 6px 0;
+  transition: color 0.2s, padding-left 0.2s;
+}
+.mega-link:hover {
+  color: var(--white);
+  padding-left: 4px;
+}
+.mega-col-featured {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mega-healthcare-card {
+  display: block;
+  padding: 28px 24px;
+  border: 1px solid rgba(200,184,154,0.2);
+  border-radius: 6px;
+  background: var(--dim);
+  transition: all 0.3s;
+}
+.mega-healthcare-card:hover {
+  border-color: rgba(200,184,154,0.4);
+  transform: translateY(-2px);
+}
+.mega-healthcare-card h4 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.mega-healthcare-card p {
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.mega-badge {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(200,184,154,0.2);
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+/* Nav item with mega trigger */
+.nav-app-trigger {
+  position: relative;
+}
+
+/* ═══════════════════════════════════════════
+   APP CROSS-NAV
+   ═══════════════════════════════════════════ */
+.app-cross-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 48px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,10,10,0.5);
+  position: relative;
+  top: 0;
+  z-index: 10;
+}
+.app-cross-nav::-webkit-scrollbar { display: none; }
+.cross-nav-item {
+  flex-shrink: 0;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--mid);
+  padding: 16px 14px;
+  transition: color 0.2s;
+  white-space: nowrap;
+  position: relative;
+}
+.cross-nav-item:hover { color: var(--white); }
+.cross-nav-item.active {
+  color: var(--white);
+}
+.cross-nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* ═══════════════════════════════════════════
+   HEALTHCARE BANNER
+   ═══════════════════════════════════════════ */
+.healthcare-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(200,184,154,0.2);
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  padding: 48px 40px;
+  margin-bottom: 0;
+}
+.healthcare-banner-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+.healthcare-banner-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.65) 100%);
+}
+.healthcare-banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+}
+.healthcare-banner-content h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+.healthcare-banner-content p {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.healthcare-banner-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.healthcare-banner-link {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  font-weight: 500;
+  transition: gap 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.healthcare-banner-link:hover { gap: 12px; }
+
+/* ═══════════════════════════════════════════
+   TALL CARDS
+   ═══════════════════════════════════════════ */
+.app-card-tall {
+  min-height: 400px;
+  aspect-ratio: unset;
+}
+.app-card-tall .image-card-content {
+  padding: 32px;
+}
+.app-card-tall .image-card-title {
+  font-size: 22px;
+}
+
+/* ═══════════════════════════════════════════
+   TRACK HEADING
+   ═══════════════════════════════════════════ */
+.track-heading {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.track-badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(200,184,154,0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════
+   MEGA MENU + CROSS-NAV + BANNER RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .mega-menu {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px;
+    position: static;
+    background: rgba(10,10,10,0.98);
+  }
+  .app-cross-nav {
+    padding: 0 24px;
+  }
+  .healthcare-banner {
+    padding: 32px 24px;
+    min-height: 180px;
+  }
+  .healthcare-banner-content h3 {
+    font-size: 22px;
+  }
+  .app-card-tall {
+    min-height: 300px;
+  }
+}
