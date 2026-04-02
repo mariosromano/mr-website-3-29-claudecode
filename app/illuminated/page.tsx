@@ -4,14 +4,14 @@ import { cloudinaryUrl } from '@/lib/data/cloudinary';
 import Link from 'next/link';
 
 export const metadata = {
-  title: '\u2726 Illuminated \u2014 M|R Walls',
+  title: '\u2726 Illuminated — M|R Walls',
   description:
-    'Backlit Corian wall surfaces. Glacier White translucent panels with LED backlighting. 40% of all M|R Walls projects.',
+    'Backlit Corian wall surfaces. Glacier White translucent panels with LED backlighting. RGB programmable via Madrix. Exterior-rated for facade applications.',
 };
 
 const stats = [
-  { value: '40%', label: 'of projects' },
-  { value: '7\u00D7', label: 'margin uplift' },
+  { value: 'Madrix', label: 'programmable' },
+  { value: 'Exterior', label: 'rated' },
   { value: 'RGB', label: 'available' },
   { value: '3"', label: 'wall depth required' },
 ];
@@ -29,28 +29,17 @@ const steps = [
   },
   {
     num: '03',
-    title: 'Smooth Side Out',
-    desc: 'The CNC-carved face is oriented inward toward the light source. The smooth, translucent face faces outward \u2014 creating a soft, luminous glow.',
+    title: 'Orientation Options',
+    desc: 'Panels can be installed carved-face-out for maximum texture, or smooth-face-out for healthcare applications where wipeable surfaces are required. Both orientations backlight beautifully.',
   },
-];
-
-const specs = [
-  { label: 'Wall cavity depth', value: 'Minimum 3\u2033' },
-  { label: 'Corian color', value: 'Glacier White only' },
-  { label: 'LED type', value: 'Integrated LED array' },
-  { label: 'Electrical', value: 'Required (dedicated circuit)' },
-  { label: 'Dimming', value: 'Optional (0\u201310V)' },
-  { label: 'RGB', value: 'Available on request' },
 ];
 
 const galleryCards = [
   { imageKey: 'lakeBacklight' as const, title: 'Lake Backlight', desc: 'Translucent feature wall', href: '/designs' },
   { imageKey: 'billowBacklight' as const, title: 'Billow Backlight', desc: 'Illuminated wave pattern', href: '/designs' },
-  { imageKey: 'seattleV2' as const, title: 'Seattle V2', desc: 'Geometric tile system', href: '/designs' },
   { imageKey: 'capitalOneArena' as const, title: 'Capital One Arena', desc: 'Large-scale sports venue', href: '/designs' },
   { imageKey: 'morongoCasino' as const, title: 'Morongo Casino', desc: 'Hospitality feature wall', href: '/designs' },
   { imageKey: 'bloomFree' as const, title: 'Bloom', desc: 'Organic floral pattern', href: '/designs' },
-  { imageKey: 'flameHospitality' as const, title: 'Flame Hospitality', desc: 'Dynamic carved surface', href: '/designs' },
   { imageKey: 'brickWaterfeature' as const, title: 'Brick Waterfeature', desc: 'Textured water wall', href: '/designs' },
 ];
 
@@ -62,8 +51,34 @@ export default function IlluminatedPage() {
         imageKey="lakeBacklight"
         label={'\u2726 Illuminated'}
         title="Some of them glow."
-        description="Glacier White Corian is the only translucent color in the DuPont\u2122 palette. Pair it with an integrated LED array behind the panels and the carved pattern lights up from within. 40% of all M|R Walls projects are illuminated."
+        description="Glacier White Corian is the only translucent color in the DuPont\u2122 palette. Pair it with an integrated LED array behind the panels and the carved pattern lights up from within."
       />
+
+      {/* ── Gallery ── */}
+      <section className="content-section">
+        <div className="section-label">{'\u2726'} Gallery</div>
+        <h2>Illuminated projects.</h2>
+        <p className="section-desc">
+          Backlit installations across hospitality, corporate, healthcare, and public venues.
+        </p>
+        <div className="card-grid card-grid-2">
+          {galleryCards.map((card) => (
+            <Link className="image-card" href={card.href} key={card.imageKey} style={{ aspectRatio: '3/2' }}>
+              <div
+                className="image-card-bg"
+                style={{ backgroundImage: `url('${cloudinaryUrl(card.imageKey, 1200)}')` }}
+              />
+              <div className="image-card-content">
+                <div className="image-card-title">{card.title}</div>
+                <div className="image-card-desc">{card.desc}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <Link className="section-link" href="/designs">
+          View full design library &rarr;
+        </Link>
+      </section>
 
       {/* ── Stats Strip ── */}
       <section
@@ -115,7 +130,7 @@ export default function IlluminatedPage() {
         <h2>Three layers, one luminous surface.</h2>
         <p className="section-desc">
           Every illuminated wall starts with Glacier White Corian, the only translucent color
-          in the palette. The CNC-carved face is oriented inward; the smooth face glows outward.
+          in the palette. Panels can be installed carved-face-out for maximum texture, or smooth-face-out for healthcare applications where wipeable surfaces are required. Both orientations backlight.
         </p>
         <div className="steps-row">
           {steps.map((step) => (
@@ -128,101 +143,46 @@ export default function IlluminatedPage() {
         </div>
       </section>
 
-      {/* ── Spec Requirements ── */}
+      {/* ── Spec Callout ── */}
       <section className="content-section">
-        <div className="section-label">{'\u2726'} Spec Requirements</div>
-        <h2>What the wall needs.</h2>
-        <p className="section-desc">
-          Illuminated installations require a minimum wall cavity depth and a dedicated electrical circuit.
-          All other parameters are flexible.
+        <p style={{
+          fontSize: 15,
+          color: '#888',
+          lineHeight: 1.8,
+          maxWidth: 720,
+          borderLeft: '2px solid rgba(200,184,154,0.3)',
+          paddingLeft: 24,
+        }}>
+          3″ wall cavity minimum · RGB programmable via Madrix · Exterior-rated for facade applications.
         </p>
-        <div
-          style={{
-            maxWidth: 640,
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderRadius: 6,
-            overflow: 'hidden',
-          }}
-        >
-          {specs.map((spec, i) => (
-            <div
-              key={spec.label}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '16px 24px',
-                borderBottom:
-                  i < specs.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                fontSize: 14,
-              }}
-            >
-              <span style={{ color: '#888' }}>{spec.label}</span>
-              <span style={{ color: '#f5f5f0', fontWeight: 400 }}>{spec.value}</span>
-            </div>
-          ))}
-        </div>
       </section>
 
-      {/* ── Standard vs Illuminated ── */}
+      {/* ── Turnkey RGB System ── */}
       <section className="content-section">
-        <div className="section-label">{'\u2726'} Comparison</div>
-        <h2>Standard vs Illuminated.</h2>
-        <p className="section-desc">
-          Both use the same CNC-carved Corian panels and patented interlocking system.
-          The difference is light.
+        <div className="section-label">{'\u2726'} RGB System</div>
+        <h2>Turnkey RGB system.</h2>
+        <p style={{
+          fontSize: 15,
+          color: '#888',
+          lineHeight: 1.8,
+          maxWidth: 600,
+        }}>
+          Madrix programmable controllers. Scene presets, color animation, and dynamic sequencing included. One vendor. One spec.
         </p>
-        <div className="compare-grid">
-          <div className="compare-card">
-            <div className="compare-tag">Standard</div>
-            <h4>Any Color, Any Design</h4>
-            <ul>
-              <li>Any Corian color</li>
-              <li>Any design pattern</li>
-              <li>No electrical required</li>
-              <li>Min 1.5&quot; wall cavity</li>
-              <li>CNC-carved interlocking panels</li>
-            </ul>
-          </div>
-          <div className="compare-card compare-card-accent">
-            <div className="compare-tag">{'\u2726'} Illuminated</div>
-            <h4>Glacier White Only</h4>
-            <ul>
-              <li>Glacier White only</li>
-              <li>LED backlighting</li>
-              <li>Min 3&quot; wall cavity</li>
-              <li>Warm translucent glow</li>
-              <li>40% of projects</li>
-              <li>Highest design impact</li>
-            </ul>
-          </div>
-        </div>
       </section>
 
-      {/* ── Gallery ── */}
+      {/* ── Exterior Rated ── */}
       <section className="content-section">
-        <div className="section-label">{'\u2726'} Gallery</div>
-        <h2>Illuminated projects.</h2>
-        <p className="section-desc">
-          Backlit installations across hospitality, corporate, healthcare, and public venues.
+        <div className="section-label">{'\u2726'} Exterior</div>
+        <h2>Exterior-rated.</h2>
+        <p style={{
+          fontSize: 15,
+          color: '#888',
+          lineHeight: 1.8,
+          maxWidth: 600,
+        }}>
+          Illuminated facades, canopies, and outdoor feature walls — same glow, engineered for weather.
         </p>
-        <div className="card-grid">
-          {galleryCards.map((card) => (
-            <Link className="image-card" href={card.href} key={card.imageKey}>
-              <div
-                className="image-card-bg"
-                style={{ backgroundImage: `url('${cloudinaryUrl(card.imageKey, 800)}')` }}
-              />
-              <div className="image-card-content">
-                <div className="image-card-title">{card.title}</div>
-                <div className="image-card-desc">{card.desc}</div>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <Link className="section-link" href="/designs">
-          View full design library &rarr;
-        </Link>
       </section>
 
       {/* ── CTAs ── */}

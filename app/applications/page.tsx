@@ -15,7 +15,7 @@ export default function ApplicationsPage() {
 
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero" style={{ paddingBottom: '48px' }}>
         <div className="section-label">Applications</div>
         <h1>What are you building?</h1>
         <p className="hero-desc">

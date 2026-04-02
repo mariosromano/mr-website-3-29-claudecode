@@ -55,7 +55,7 @@ export default function ApplicationsClient({ interior, exterior }: Props) {
 
   return (
     <>
-      <section className="content-section" style={{ borderBottom: 'none', paddingBottom: 0 }}>
+      <section className="content-section" style={{ borderBottom: 'none', paddingBottom: 0, paddingTop: '48px' }}>
         <div className="section-label">Filter by sector</div>
         <div className="filter-bar">
           {sectors.map((s) => (
@@ -71,7 +71,7 @@ export default function ApplicationsClient({ interior, exterior }: Props) {
       </section>
 
       <section className="content-section">
-        <div style={{ marginBottom: 80 }}>
+        <div style={{ marginBottom: 48 }}>
           <div style={{
             fontFamily: "'Instrument Serif', serif",
             fontSize: 28,
@@ -96,9 +96,9 @@ export default function ApplicationsClient({ interior, exterior }: Props) {
               {interior.filter(isVisible).length} applications
             </span>
           </div>
-          <div className="card-grid">
+          <div className="card-grid card-grid-2">
             {interior.filter(isVisible).map((app) => (
-              <Link key={app.slug} className="image-card fade-up" href={`/applications/${app.slug}`}>
+              <Link key={app.slug} className="image-card image-card-lg fade-up" href={`/applications/${app.slug}`}>
                 <div className="image-card-bg" data-bg={cloudinaryUrl(app.imageKey, 600)} />
                 <div className="image-card-content">
                   <div className="image-card-title">{app.name}</div>
@@ -135,9 +135,9 @@ export default function ApplicationsClient({ interior, exterior }: Props) {
               {exterior.filter(isVisible).length} applications
             </span>
           </div>
-          <div className="card-grid card-grid-4">
+          <div className="card-grid">
             {exterior.filter(isVisible).map((app) => (
-              <Link key={app.slug} className="image-card fade-up" href={`/applications/${app.slug}`}>
+              <Link key={app.slug} className="image-card image-card-lg fade-up" href={`/applications/${app.slug}`}>
                 <div className="image-card-bg" data-bg={cloudinaryUrl(app.imageKey, 600)} />
                 <div className="image-card-content">
                   <div className="image-card-title">{app.name}</div>

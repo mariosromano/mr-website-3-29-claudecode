@@ -126,7 +126,7 @@ export default function StudioPage() {
             marginTop: 8,
           }}
         >
-          {TROPHY_PROJECTS.map((project) => (
+          {TROPHY_PROJECTS.map((project, i) => (
             <div
               key={project.name}
               style={{
@@ -134,16 +134,17 @@ export default function StudioPage() {
                 borderRadius: 6,
                 overflow: 'hidden',
                 border: '1px solid rgba(255,255,255,0.08)',
-                aspectRatio: '16/10',
+                aspectRatio: '16/9',
                 cursor: 'pointer',
                 transition: 'border-color 0.3s, transform 0.3s',
+                gridColumn: i < 2 ? '1 / -1' : undefined,
               }}
             >
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  backgroundImage: `url('${cloudinaryUrl(project.imageKey, 800)}')`,
+                  backgroundImage: `url('${cloudinaryUrl(project.imageKey, 1200)}')`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   transition: 'transform 0.6s ease',

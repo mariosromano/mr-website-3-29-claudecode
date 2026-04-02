@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import PageCTAs from '@/components/PageCTAs';
+import { cloudinaryUrl } from '@/lib/data/cloudinary';
 
 export const metadata: Metadata = {
   title: 'MakeReal — M|R Walls',
@@ -91,19 +92,84 @@ export default function MakeRealPage() {
       <section className="content-section">
         <div className="section-label">AI Design</div>
         <h2>Mara AI Design Generator</h2>
-        <p className="section-desc">
-          Describe the feeling you want. Mara generates sculptural surface designs
-          that are fabrication-ready — constrained to our CNC toolpaths and
-          material limits so every output is buildable.
-        </p>
-        <a
-          href="https://mara-v15.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="section-link"
-        >
-          Launch Mara AI <span>&rarr;</span>
-        </a>
+        <div style={{
+          display: 'flex',
+          gap: 48,
+          alignItems: 'flex-start',
+          flexWrap: 'wrap' as const,
+        }}>
+          <div style={{ flex: '1 1 320px', minWidth: 280 }}>
+            <p style={{
+              fontSize: 15,
+              color: '#888',
+              lineHeight: 1.8,
+              maxWidth: 480,
+              marginBottom: 32,
+            }}>
+              Describe the feeling you want. Mara generates sculptural surface designs
+              that are fabrication-ready — constrained to our CNC toolpaths and
+              material limits so every output is buildable.
+            </p>
+            <a
+              href="https://mara-v15.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="section-link"
+            >
+              Launch Mara AI <span>&rarr;</span>
+            </a>
+          </div>
+          <div style={{
+            flex: '1 1 400px',
+            minWidth: 320,
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 8,
+            overflow: 'hidden',
+            background: 'rgba(255,255,255,0.02)',
+          }}>
+            <div style={{
+              padding: '16px 20px',
+              borderBottom: '1px solid rgba(255,255,255,0.08)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+            }}>
+              <div style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: '#c8b89a',
+                flexShrink: 0,
+              }} />
+              <span style={{
+                fontSize: 13,
+                color: '#888',
+                fontStyle: 'italic',
+              }}>
+                &ldquo;Generate a backlit wave pattern for a healthcare elevator lobby&rdquo;
+              </span>
+            </div>
+            <div style={{ position: 'relative', aspectRatio: '16/10' }}>
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: `url('${cloudinaryUrl('billowBacklight', 1200)}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }} />
+            </div>
+            <div style={{
+              padding: '10px 20px',
+              borderTop: '1px solid rgba(255,255,255,0.08)',
+              fontSize: 10,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase' as const,
+              color: 'rgba(200,184,154,0.5)',
+            }}>
+              Mara output
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Bridge to Studio */}
