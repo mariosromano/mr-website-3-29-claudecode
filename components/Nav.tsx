@@ -60,7 +60,7 @@ export default function Nav() {
   };
 
   const closeMega = () => {
-    megaTimeout.current = setTimeout(() => setMegaOpen(false), 120);
+    megaTimeout.current = setTimeout(() => setMegaOpen(false), 200);
   };
 
   const activeKey = pathname.split('/').filter(Boolean)[0] || 'home';
