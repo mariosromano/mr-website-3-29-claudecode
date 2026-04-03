@@ -782,29 +782,42 @@ img { display: block; max-width: 100%; }
 }
 
 /* ═══════════════════════════════════════════
-   MEGA MENU
+   MEGA MENU — wrapper-based dropdown
    ═══════════════════════════════════════════ */
-.mega-menu {
+
+/* Wrapper sits inside the <li>, contains trigger + panel */
+.mega-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: static;         /* panel positions relative to .nav */
+}
+.mega-trigger-link {
+  color: inherit;
+}
+
+/* Desktop dropdown panel — full-width under nav */
+.mega-panel {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  padding: 0;
   background: rgba(10,10,10,0.97);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border);
-  z-index: 99;
-  animation: megaFadeIn 0.2s ease;
+  z-index: 50;
+  pointer-events: auto;
+  animation: megaFadeIn 0.18s ease;
 }
-/* Invisible bridge so cursor can travel from nav trigger to mega menu */
-.mega-menu::before {
+/* Invisible bridge — prevents gap between trigger and panel */
+.mega-panel::before {
   content: '';
   position: absolute;
-  top: -20px;
+  top: -16px;
   left: 0;
   right: 0;
-  height: 20px;
+  height: 16px;
 }
 @keyframes megaFadeIn {
   from { opacity: 0; transform: translateY(-4px); }
@@ -835,41 +848,6 @@ img { display: block; max-width: 100%; }
 .mega-link:hover {
   color: var(--white);
   padding-left: 4px;
-}
-
-/* Healthcare highlighted row at bottom of mega menu */
-.mega-healthcare-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 48px;
-  border-top: 1px solid var(--border);
-  font-size: 14px;
-  color: var(--accent);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  transition: background 0.2s;
-}
-.mega-healthcare-row:hover {
-  background: rgba(200,184,154,0.05);
-}
-.mega-healthcare-icon {
-  font-size: 14px;
-}
-.mega-healthcare-sub {
-  font-size: 11px;
-  color: var(--mid);
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  margin-left: 4px;
-}
-.mega-healthcare-arrow {
-  margin-left: auto;
-  font-size: 14px;
-  transition: transform 0.2s;
-}
-.mega-healthcare-row:hover .mega-healthcare-arrow {
-  transform: translateX(4px);
 }
 
 /* Mobile mega accordion */
@@ -903,14 +881,6 @@ img { display: block; max-width: 100%; }
   border-radius: 12px;
   margin-right: 4px;
   margin-bottom: 4px;
-}
-
-/* Nav item with mega trigger */
-.nav-app-trigger {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 
 /* ═══════════════════════════════════════════
@@ -1059,9 +1029,9 @@ img { display: block; max-width: 100%; }
    MEGA MENU + CROSS-NAV + BANNER RESPONSIVE
    ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* Hide desktop mega menu on mobile */
-  .nav > .mega-menu {
-    display: none;
+  /* Hide desktop dropdown panel on mobile */
+  .mega-panel {
+    display: none !important;
   }
   /* Show mobile toggle button */
   .mega-mobile-btn {
@@ -1071,11 +1041,6 @@ img { display: block; max-width: 100%; }
   .mega-accordion .mega-link {
     font-size: 13px;
     padding: 6px 0;
-  }
-  .mega-accordion .mega-healthcare-row {
-    padding: 8px 0;
-    border-top: none;
-    font-size: 13px;
   }
   .app-cross-nav {
     padding: 0 24px;
