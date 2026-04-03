@@ -14,7 +14,7 @@ export default function CasinoGamingPage() {
     <>
       {/* ── 1. Hero ── */}
       <HeroBleed
-        imageKey="morongoCasino"
+        imageKey="casinoHighRoller"
         label="Casino & Gaming"
         title="The ceiling they look up at. The wall they photograph."
         description="Carved Corian surfaces for casinos, arenas, and entertainment venues. Illuminated, sculptural, one-of-a-kind."
@@ -35,7 +35,7 @@ export default function CasinoGamingPage() {
             <div
               className="image-card-bg"
               style={{
-                backgroundImage: `url('${cloudinaryUrl('morongoCasino', 600)}')`,
+                backgroundImage: `url('${cloudinaryUrl('morongoCeilingBacklit', 600)}')`,
               }}
             />
             <div className="image-card-arrow">{'\u2197'}</div>
@@ -69,7 +69,7 @@ export default function CasinoGamingPage() {
             <div
               className="image-card-bg"
               style={{
-                backgroundImage: `url('${cloudinaryUrl('bloomFree', 600)}')`,
+                backgroundImage: `url('${cloudinaryUrl('casinoHoneyWall', 600)}')`,
               }}
             />
             <div className="image-card-arrow">{'\u2197'}</div>
@@ -86,7 +86,7 @@ export default function CasinoGamingPage() {
             <div
               className="image-card-bg"
               style={{
-                backgroundImage: `url('${cloudinaryUrl('billowBacklight', 600)}')`,
+                backgroundImage: `url('${cloudinaryUrl('casinoVoronoi', 600)}')`,
               }}
             />
             <div className="image-card-arrow">{'\u2197'}</div>
@@ -119,7 +119,7 @@ export default function CasinoGamingPage() {
             <div
               className="image-card-bg"
               style={{
-                backgroundImage: `url('${cloudinaryUrl('morongoCasino', 400)}')`,
+                backgroundImage: `url('${cloudinaryUrl('morongoCeilingBacklit', 400)}')`,
               }}
             />
             <div className="image-card-content">
@@ -132,7 +132,7 @@ export default function CasinoGamingPage() {
             <div
               className="image-card-bg"
               style={{
-                backgroundImage: `url('${cloudinaryUrl('capitalOneArena', 400)}')`,
+                backgroundImage: `url('${cloudinaryUrl('casinoHoneyWall', 400)}')`,
               }}
             />
             <div className="image-card-content">
@@ -145,7 +145,7 @@ export default function CasinoGamingPage() {
             <div
               className="image-card-bg"
               style={{
-                backgroundImage: `url('${cloudinaryUrl('capitalOneArena', 400)}')`,
+                backgroundImage: `url('${cloudinaryUrl('casinoVoronoi', 400)}')`,
               }}
             />
             <div className="image-card-content">
@@ -158,7 +158,7 @@ export default function CasinoGamingPage() {
             <div
               className="image-card-bg"
               style={{
-                backgroundImage: `url('${cloudinaryUrl('lakeBacklight', 400)}')`,
+                backgroundImage: `url('${cloudinaryUrl('casinoFlutedColumns', 400)}')`,
               }}
             />
             <div className="image-card-content">

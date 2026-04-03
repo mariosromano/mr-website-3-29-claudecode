@@ -14,6 +14,11 @@ export const images = {
   finsExterior: { id: 'Fins_exterior_white_gcccvq', v: '', ext: 'jpg' },
   bloomFree: { id: 'Bloom-free_reo20n', v: 'v1769147350', ext: 'jpg' },
   fingerprint: { id: 'Fingerprint_-_Large_udpxci', v: 'v1769147366', ext: 'jpg' },
+  casinoHoneyWall: { id: 'makereal/hospitality/casino-honey-backlit-feature-wall', v: 'v1775162339', ext: 'png' },
+  casinoFlutedColumns: { id: 'makereal/hospitality/casino-backlit-fluted-columns', v: 'v1775162304', ext: 'png' },
+  casinoHighRoller: { id: 'makereal/hospitality/casino-fluted-columns-illuminated-highroller', v: 'v1775162453', ext: 'png' },
+  casinoVoronoi: { id: 'makereal/hospitality/casino-voronoi-backlit-high-limit-lounge', v: 'v1775162391', ext: 'png' },
+  morongoCeilingBacklit: { id: 'makereal/hospitality/morongo-casino-ceiling-backlit', v: 'v1775159413', ext: 'jpg' },
 } as const;
 
 export type ImageKey = keyof typeof images;
