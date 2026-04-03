@@ -20,10 +20,27 @@ const exteriorApps = [
   { slug: 'water-features', name: 'Water Features' },
 ];
 
+const exteriorCerts = ['180 mph', '-40°F to 140°F', 'UV Stable'];
+
 const sectors = [
-  { href: '/healthcare', name: 'Healthcare' },
-  { href: '/sector/casino-gaming', name: 'Casino & Gaming' },
-  { href: '/sector/aviation', name: 'Aviation' },
+  {
+    href: '/healthcare',
+    name: 'Healthcare',
+    sub: 'Antimicrobial \u00b7 Zero-joint \u00b7 GREENGUARD',
+    accent: true,
+  },
+  {
+    href: '/sector/casino-gaming',
+    name: 'Casino & Gaming',
+    sub: 'Illuminated ceilings \u00b7 RGB \u00b7 Branded',
+    accent: false,
+  },
+  {
+    href: '/sector/aviation',
+    name: 'Aviation',
+    sub: '5,000 SF at LAX \u00b7 16-day install',
+    accent: false,
+  },
 ];
 
 const navItems = [
@@ -48,13 +65,11 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close everything on navigation
   useEffect(() => {
     setMobileOpen(false);
     setMegaOpen(false);
   }, [pathname]);
 
-  // Desktop hover: single wrapper handles enter/leave
   const handleEnter = useCallback(() => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setMegaOpen(true);
@@ -64,7 +79,6 @@ export default function Nav() {
     closeTimer.current = setTimeout(() => setMegaOpen(false), 150);
   }, []);
 
-  // Mobile tap toggle
   const handleMobileMegaToggle = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -95,7 +109,6 @@ export default function Nav() {
           if (item.hasMega) {
             return (
               <li key={item.key} className={activeKey === item.key ? 'active' : ''}>
-                {/* Single wrapper for desktop hover — contains trigger + panel */}
                 <div
                   className="mega-wrapper"
                   onMouseEnter={handleEnter}
@@ -112,31 +125,49 @@ export default function Nav() {
                     {megaOpen ? '\u2212' : '+'}
                   </button>
 
-                  {/* Desktop dropdown panel — inside the wrapper */}
                   {megaOpen && (
                     <div className="mega-panel">
                       <div className="mega-columns">
-                        <div>
-                          <div className="mega-col-header">Interior</div>
+                        {/* Column 1 — Interior */}
+                        <div className="mega-col">
+                          <div className="mega-col-header">Interior Surfaces</div>
                           {interiorApps.map((app) => (
                             <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
                               {app.name}
                             </Link>
                           ))}
                         </div>
-                        <div>
-                          <div className="mega-col-header">Exterior</div>
+
+                        {/* Column 2 — Exterior */}
+                        <div className="mega-col">
+                          <div className="mega-col-header">Exterior Surfaces</div>
                           {exteriorApps.map((app) => (
                             <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
                               {app.name}
                             </Link>
                           ))}
+                          <div className="mega-cert-divider" />
+                          <div className="mega-cert-row">
+                            {exteriorCerts.map((cert) => (
+                              <span key={cert} className="mega-cert-pill">{cert}</span>
+                            ))}
+                          </div>
                         </div>
-                        <div>
+
+                        {/* Column 3 — Sectors */}
+                        <div className="mega-col">
                           <div className="mega-col-header">Sectors</div>
                           {sectors.map((s) => (
-                            <Link key={s.href} href={s.href} className="mega-link">
-                              {s.name}
+                            <Link
+                              key={s.href}
+                              href={s.href}
+                              className={`mega-sector-card${s.accent ? ' mega-sector-accent' : ''}`}
+                            >
+                              <div className="mega-sector-name">{s.name}</div>
+                              <div className="mega-sector-sub">
+                                <span className="mega-sector-diamond">{'\u25C7'}</span>
+                                {s.sub}
+                              </div>
                             </Link>
                           ))}
                         </div>
@@ -154,17 +185,17 @@ export default function Nav() {
           );
         })}
 
-        {/* Mobile accordion — only visible in mobile nav */}
+        {/* Mobile accordion */}
         {megaOpen && (
           <li className="mega-accordion">
             <div className="mega-accordion-inner">
-              <div className="mega-col-header">Interior</div>
+              <div className="mega-col-header">Interior Surfaces</div>
               {interiorApps.map((app) => (
                 <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
                   {app.name}
                 </Link>
               ))}
-              <div className="mega-col-header" style={{ marginTop: 16 }}>Exterior</div>
+              <div className="mega-col-header" style={{ marginTop: 16 }}>Exterior Surfaces</div>
               {exteriorApps.map((app) => (
                 <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
                   {app.name}
@@ -174,6 +205,9 @@ export default function Nav() {
               {sectors.map((s) => (
                 <Link key={s.href} href={s.href} className="mega-link">
                   {s.name}
+                  <span style={{ display: 'block', fontSize: 11, color: 'rgba(200,184,154,0.5)', marginTop: 2 }}>
+                    {s.sub}
+                  </span>
                 </Link>
               ))}
             </div>
