@@ -20,6 +20,12 @@ const exteriorApps = [
   { slug: 'water-features', name: 'Water Features' },
 ];
 
+const sectors = [
+  { href: '/healthcare', name: 'Healthcare' },
+  { href: '/sector/casino-gaming', name: 'Casino & Gaming' },
+  { href: '/sector/aviation', name: 'Aviation' },
+];
+
 const navItems = [
   { href: '/applications', label: 'Applications', key: 'applications', hasMega: true },
   { href: '/system', label: 'The System', key: 'system' },
@@ -120,9 +126,12 @@ export default function Nav() {
                   {app.name}
                 </Link>
               ))}
-              <Link href="/healthcare" className="mega-healthcare-row" style={{ marginTop: 16 }}>
-                {'\u25C8'} Healthcare
-              </Link>
+              <div className="mega-col-header" style={{ marginTop: 16 }}>Sectors</div>
+              {sectors.map((s) => (
+                <Link key={s.href} href={s.href} className="mega-link">
+                  {s.name}
+                </Link>
+              ))}
             </div>
           </li>
         )}
@@ -152,13 +161,15 @@ export default function Nav() {
                 </Link>
               ))}
             </div>
+            <div>
+              <div className="mega-col-header">Sectors</div>
+              {sectors.map((s) => (
+                <Link key={s.href} href={s.href} className="mega-link">
+                  {s.name}
+                </Link>
+              ))}
+            </div>
           </div>
-          <Link href="/healthcare" className="mega-healthcare-row">
-            <span className="mega-healthcare-icon">{'\u25C8'}</span>
-            <span>Healthcare</span>
-            <span className="mega-healthcare-sub">Antimicrobial &middot; Zero-Joint &middot; Bleach-Safe &middot; GREENGUARD Gold</span>
-            <span className="mega-healthcare-arrow">&rarr;</span>
-          </Link>
         </div>
       )}
 

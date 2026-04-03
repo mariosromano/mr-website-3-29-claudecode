@@ -98,6 +98,61 @@ export default function ApplicationsPage() {
         </div>
       </section>
 
+      {/* ── By Sector ── */}
+      <section className="content-section">
+        <div className="section-label">By Sector</div>
+        <h2>Targeted solutions by industry</h2>
+        <p className="section-desc">
+          Explore M|R Walls applications tailored to the unique demands of each
+          industry &mdash; from infection control in healthcare to rapid
+          installation in aviation terminals.
+        </p>
+
+        <div className="card-grid">
+          <Link href="/healthcare" className="image-card">
+            <div
+              className="image-card-bg"
+              style={{ backgroundImage: `url('${cloudinaryUrl('seattleV2', 600)}')` }}
+            />
+            <div className="image-card-arrow">&rarr;</div>
+            <div className="image-card-content">
+              <div className="image-card-title">Healthcare</div>
+              <div className="image-card-desc">
+                Antimicrobial &middot; Zero-joint &middot; GREENGUARD
+              </div>
+            </div>
+          </Link>
+
+          <Link href="/sector/casino-gaming" className="image-card">
+            <div
+              className="image-card-bg"
+              style={{ backgroundImage: `url('${cloudinaryUrl('morongoCasino', 600)}')` }}
+            />
+            <div className="image-card-arrow">&rarr;</div>
+            <div className="image-card-content">
+              <div className="image-card-title">Casino &amp; Gaming</div>
+              <div className="image-card-desc">
+                Illuminated ceilings &middot; Branded environments
+              </div>
+            </div>
+          </Link>
+
+          <Link href="/sector/aviation" className="image-card">
+            <div
+              className="image-card-bg"
+              style={{ backgroundImage: `url('${cloudinaryUrl('laxAmericanAirlines', 600)}')` }}
+            />
+            <div className="image-card-arrow">&rarr;</div>
+            <div className="image-card-content">
+              <div className="image-card-title">Aviation</div>
+              <div className="image-card-desc">
+                5,000 SF at LAX &middot; 16-day install
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       <PageCTAs />
     </>
   );
