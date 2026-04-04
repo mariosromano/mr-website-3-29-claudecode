@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -23,24 +23,9 @@ const exteriorApps = [
 const exteriorCerts = ['180 mph', '-40°F to 140°F', 'UV Stable'];
 
 const sectors = [
-  {
-    href: '/healthcare',
-    name: 'Healthcare',
-    sub: 'Antimicrobial \u00b7 Zero-joint \u00b7 GREENGUARD',
-    accent: true,
-  },
-  {
-    href: '/sector/casino-gaming',
-    name: 'Casino & Gaming',
-    sub: 'Illuminated ceilings \u00b7 RGB \u00b7 Branded',
-    accent: false,
-  },
-  {
-    href: '/sector/aviation',
-    name: 'Aviation',
-    sub: '5,000 SF at LAX \u00b7 16-day install',
-    accent: false,
-  },
+  { href: '/healthcare', name: 'Healthcare', sub: 'Antimicrobial \u00b7 Zero-joint \u00b7 GREENGUARD', accent: true },
+  { href: '/sector/casino-gaming', name: 'Casino & Gaming', sub: 'Illuminated ceilings \u00b7 RGB \u00b7 Branded', accent: false },
+  { href: '/sector/aviation', name: 'Aviation', sub: '5,000 SF at LAX \u00b7 16-day install', accent: false },
 ];
 
 const navItems = [
@@ -54,10 +39,9 @@ const navItems = [
 
 export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
+  const [mobileAccordion, setMobileAccordion] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -67,23 +51,8 @@ export default function Nav() {
 
   useEffect(() => {
     setMobileOpen(false);
-    setMegaOpen(false);
+    setMobileAccordion(false);
   }, [pathname]);
-
-  const handleEnter = useCallback(() => {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setMegaOpen(true);
-  }, []);
-
-  const handleLeave = useCallback(() => {
-    closeTimer.current = setTimeout(() => setMegaOpen(false), 150);
-  }, []);
-
-  const handleMobileMegaToggle = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setMegaOpen((prev) => !prev);
-  }, []);
 
   const activeKey = pathname.split('/').filter(Boolean)[0] || 'home';
 
@@ -98,7 +67,7 @@ export default function Nav() {
 
       <button
         className="nav-toggle"
-        onClick={() => { setMobileOpen(!mobileOpen); setMegaOpen(false); }}
+        onClick={() => { setMobileOpen(!mobileOpen); setMobileAccordion(false); }}
         aria-label="Toggle navigation"
       >
         <span /><span /><span />
@@ -108,72 +77,49 @@ export default function Nav() {
         {navItems.map((item) => {
           if (item.hasMega) {
             return (
-              <li key={item.key} className={activeKey === item.key ? 'active' : ''}>
-                <div
-                  className="mega-wrapper"
-                  onMouseEnter={handleEnter}
-                  onMouseLeave={handleLeave}
+              <li key={item.key} className={`mega-wrapper ${activeKey === item.key ? 'active' : ''}`}>
+                <Link href={item.href}>{item.label}</Link>
+                <button
+                  className="mega-mobile-btn"
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setMobileAccordion(!mobileAccordion); }}
+                  aria-label="Toggle applications menu"
                 >
-                  <Link href={item.href} className="mega-trigger-link">
-                    {item.label}
-                  </Link>
-                  <button
-                    className="mega-mobile-btn"
-                    onClick={handleMobileMegaToggle}
-                    aria-label="Toggle applications menu"
-                  >
-                    {megaOpen ? '\u2212' : '+'}
-                  </button>
+                  {mobileAccordion ? '\u2212' : '+'}
+                </button>
 
-                  {megaOpen && (
-                    <div className="mega-panel">
-                      <div className="mega-columns">
-                        {/* Column 1 — Interior */}
-                        <div className="mega-col">
-                          <div className="mega-col-header">Interior Surfaces</div>
-                          {interiorApps.map((app) => (
-                            <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
-                              {app.name}
-                            </Link>
-                          ))}
-                        </div>
-
-                        {/* Column 2 — Exterior */}
-                        <div className="mega-col">
-                          <div className="mega-col-header">Exterior Surfaces</div>
-                          {exteriorApps.map((app) => (
-                            <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
-                              {app.name}
-                            </Link>
-                          ))}
-                          <div className="mega-cert-divider" />
-                          <div className="mega-cert-row">
-                            {exteriorCerts.map((cert) => (
-                              <span key={cert} className="mega-cert-pill">{cert}</span>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Column 3 — Sectors */}
-                        <div className="mega-col">
-                          <div className="mega-col-header">Sectors</div>
-                          {sectors.map((s) => (
-                            <Link
-                              key={s.href}
-                              href={s.href}
-                              className={`mega-sector-card${s.accent ? ' mega-sector-accent' : ''}`}
-                            >
-                              <div className="mega-sector-name">{s.name}</div>
-                              <div className="mega-sector-sub">
-                                <span className="mega-sector-diamond">{'\u25C7'}</span>
-                                {s.sub}
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
+                {/* Panel always in DOM — CSS hover shows it on desktop */}
+                <div className="mega-panel">
+                  <div className="mega-columns">
+                    <div className="mega-col">
+                      <div className="mega-col-header">Interior Surfaces</div>
+                      {interiorApps.map((app) => (
+                        <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">{app.name}</Link>
+                      ))}
+                    </div>
+                    <div className="mega-col">
+                      <div className="mega-col-header">Exterior Surfaces</div>
+                      {exteriorApps.map((app) => (
+                        <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">{app.name}</Link>
+                      ))}
+                      <div className="mega-cert-divider" />
+                      <div className="mega-cert-row">
+                        {exteriorCerts.map((c) => (
+                          <span key={c} className="mega-cert-pill">{c}</span>
+                        ))}
                       </div>
                     </div>
-                  )}
+                    <div className="mega-col">
+                      <div className="mega-col-header">Sectors</div>
+                      {sectors.map((s) => (
+                        <Link key={s.href} href={s.href} className={`mega-sector-card${s.accent ? ' mega-sector-accent' : ''}`}>
+                          <div className="mega-sector-name">{s.name}</div>
+                          <div className="mega-sector-sub">
+                            <span className="mega-sector-diamond">{'\u25C7'}</span>{s.sub}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </li>
             );
@@ -186,28 +132,22 @@ export default function Nav() {
         })}
 
         {/* Mobile accordion */}
-        {megaOpen && (
+        {mobileAccordion && (
           <li className="mega-accordion">
             <div className="mega-accordion-inner">
               <div className="mega-col-header">Interior Surfaces</div>
               {interiorApps.map((app) => (
-                <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
-                  {app.name}
-                </Link>
+                <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">{app.name}</Link>
               ))}
               <div className="mega-col-header" style={{ marginTop: 16 }}>Exterior Surfaces</div>
               {exteriorApps.map((app) => (
-                <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">
-                  {app.name}
-                </Link>
+                <Link key={app.slug} href={`/applications/${app.slug}`} className="mega-link">{app.name}</Link>
               ))}
               <div className="mega-col-header" style={{ marginTop: 16 }}>Sectors</div>
               {sectors.map((s) => (
                 <Link key={s.href} href={s.href} className="mega-link">
                   {s.name}
-                  <span style={{ display: 'block', fontSize: 11, color: 'rgba(200,184,154,0.5)', marginTop: 2 }}>
-                    {s.sub}
-                  </span>
+                  <span style={{ display: 'block', fontSize: 11, color: 'rgba(200,184,154,0.5)', marginTop: 2 }}>{s.sub}</span>
                 </Link>
               ))}
             </div>

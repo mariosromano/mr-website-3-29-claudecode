@@ -782,21 +782,17 @@ img { display: block; max-width: 100%; }
 }
 
 /* ═══════════════════════════════════════════
-   MEGA MENU
+   MEGA MENU — pure CSS hover, no JS show/hide
    ═══════════════════════════════════════════ */
 
-/* Wrapper — contains trigger link + dropdown panel */
+/* Wrapper is the <li> itself */
 .mega-wrapper {
   display: flex;
   align-items: center;
   gap: 4px;
-  position: static;
-}
-.mega-trigger-link {
-  color: inherit;
 }
 
-/* Dropdown panel — overlays page, does NOT push content */
+/* Panel always in DOM, hidden by default */
 .mega-panel {
   position: absolute;
   top: 100%;
@@ -805,24 +801,28 @@ img { display: block; max-width: 100%; }
   background: #1a1a18;
   border-bottom: 1px solid rgba(255,255,255,0.06);
   z-index: 50;
-  pointer-events: auto;
-  animation: megaFadeIn 0.18s ease;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
 }
-/* 10px invisible bridge between nav item and panel */
+/* Invisible bridge — connects nav item to panel */
 .mega-panel::before {
   content: '';
   position: absolute;
-  top: -10px;
+  top: -12px;
   left: 0;
   right: 0;
-  height: 10px;
+  height: 12px;
 }
-@keyframes megaFadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Desktop: hover on wrapper shows panel — pure CSS, no JS */
+.mega-wrapper:hover .mega-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
-/* 3-column grid separated by vertical lines */
+/* 3-column grid with vertical dividers */
 .mega-columns {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -832,7 +832,6 @@ img { display: block; max-width: 100%; }
 .mega-col {
   padding: 32px 40px;
 }
-/* Vertical divider lines between columns */
 .mega-col + .mega-col {
   border-left: 1px solid rgba(255,255,255,0.06);
 }
@@ -859,7 +858,7 @@ img { display: block; max-width: 100%; }
   color: rgba(255,255,255,1);
 }
 
-/* Exterior certifications */
+/* Exterior cert pills */
 .mega-cert-divider {
   border-top: 1px solid rgba(255,255,255,0.06);
   margin: 24px 0 20px;
@@ -924,7 +923,7 @@ img { display: block; max-width: 100%; }
   padding: 8px 0 8px 16px;
 }
 
-/* Mobile toggle button — hidden on desktop */
+/* Mobile toggle — hidden on desktop */
 .mega-mobile-btn {
   display: none;
   background: none;
@@ -1095,15 +1094,13 @@ img { display: block; max-width: 100%; }
    MEGA MENU + CROSS-NAV + BANNER RESPONSIVE
    ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* Hide desktop dropdown panel on mobile */
+  /* Disable CSS hover dropdown on mobile — always hidden */
   .mega-panel {
     display: none !important;
   }
-  /* Show mobile toggle button */
   .mega-mobile-btn {
     display: inline-block;
   }
-  /* Style the mobile accordion links */
   .mega-accordion .mega-link {
     font-size: 13px;
     padding: 6px 0;
