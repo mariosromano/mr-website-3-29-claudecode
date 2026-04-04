@@ -5,15 +5,15 @@ export default function PageCTAs() {
     <section className="page-cta-section">
       <div className="section-label" style={{ textAlign: 'center', marginBottom: 48 }}>Ready to start?</div>
       <div className="page-cta-grid">
-        <Link className="page-cta-card" href="/makereal">
-          <div className="page-cta-card-icon">{'\u25CE'}</div>
-          <h3>Configure Your Spec</h3>
-          <p>5-step configurator. Application, sector, design, color. Get CSI spec text in minutes.</p>
-        </Link>
         <Link className="page-cta-card" href="/contact">
+          <div className="page-cta-card-icon">{'\u25CE'}</div>
+          <h3>Design Assist</h3>
+          <p>Send us your project details. Dimensions, application, timeline. We&apos;ll engineer a solution.</p>
+        </Link>
+        <Link className="page-cta-card" href="/designs">
           <div className="page-cta-card-icon">{'\u25C7'}</div>
-          <h3>Request a DFP</h3>
-          <p>Design Fabrication Proposal. Send us your project details and we&apos;ll engineer a solution.</p>
+          <h3>Get the Spec</h3>
+          <p>Find your design in the Design Library. Explore the family. Download CSI spec text in minutes.</p>
         </Link>
         <Link className="page-cta-card" href="/contact">
           <div className="page-cta-card-icon">{'\u2726'}</div>

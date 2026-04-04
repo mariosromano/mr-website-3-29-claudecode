@@ -5,7 +5,7 @@ import { cloudinaryUrl } from '@/lib/data/cloudinary';
 
 export const metadata: Metadata = {
   title: 'MakeReal — M|R Walls',
-  description: 'Configure, generate, spec. Digital tools for architects.',
+  description: 'AI-assisted design tools for architects. Generate custom designs and explore creative possibilities.',
 };
 
 export default function MakeRealPage() {
@@ -14,75 +14,40 @@ export default function MakeRealPage() {
       {/* Hero */}
       <section className="page-hero">
         <div className="section-label">MakeReal</div>
-        <h1>Configure, generate, spec</h1>
+        <h1>Design something new</h1>
         <p className="hero-desc">
-          Digital tools for architects and designers. Configure your wall system,
-          generate AI-driven designs, and download spec-ready documents — all
-          without picking up the phone.
+          AI-assisted design tools for architects and designers. Generate custom
+          patterns, explore new aesthetics, and push the limits of CNC-carved surfaces.
         </p>
       </section>
 
-      {/* Embedded Configurator */}
+      {/* What MakeReal Can Do */}
       <section className="content-section">
-        <div className="section-label">Configurator</div>
-        <h2>Build your spec in minutes</h2>
-        <p className="section-desc">
-          Select your application, sector, dimensions, and design. The
-          configurator outputs CSI-format specification text and shop-drawing-ready
-          data.
-        </p>
-        <div
-          style={{
-            borderRadius: 6,
-            overflow: 'hidden',
-            border: '1px solid rgba(255,255,255,0.08)',
-          }}
-        >
-          <iframe
-            src="https://g268pt.csb.app/"
-            title="M|R Walls Configurator"
-            style={{
-              width: '100%',
-              height: 600,
-              border: 'none',
-              display: 'block',
-              background: '#111',
-            }}
-            allow="clipboard-write"
-          />
-        </div>
-      </section>
-
-      {/* Three-step visual */}
-      <section className="content-section">
-        <div className="section-label">How it works</div>
-        <h2>Three steps to a spec</h2>
-        <p className="section-desc">
-          From concept to construction document in one sitting.
-        </p>
+        <div className="section-label">Capabilities</div>
+        <h2>What MakeReal can do</h2>
         <div className="steps-row">
           <div className="step-card">
             <div className="step-number">01</div>
-            <h4>Configure</h4>
+            <h4>Generate</h4>
             <p>
-              Choose your dimensions, application, and sector. The system narrows
-              your options to what actually works.
+              Describe the feeling you want. Mara AI generates sculptural surface
+              designs constrained to our CNC toolpaths and material limits.
             </p>
           </div>
           <div className="step-card">
             <div className="step-number">02</div>
-            <h4>Generate</h4>
+            <h4>Iterate</h4>
             <p>
-              AI creates your design based on your parameters. Adjust pattern,
-              depth, color, and lighting in real time.
+              Adjust pattern, depth, color, and lighting in real time. Every
+              output is fabrication-ready — no guesswork.
             </p>
           </div>
           <div className="step-card">
             <div className="step-number">03</div>
-            <h4>Spec</h4>
+            <h4>Explore</h4>
             <p>
-              Get CSI-format spec text and shop drawings. Ready for your
-              construction documents and submittals.
+              Go beyond the Design Library. Create something that doesn&apos;t
+              exist yet — organic, geometric, or something entirely new.
             </p>
           </div>
         </div>
@@ -172,28 +137,28 @@ export default function MakeRealPage() {
         </div>
       </section>
 
-      {/* Bridge to Studio */}
-      <section
-        className="content-section"
-        style={{ textAlign: 'center' }}
-      >
-        <div className="section-label" style={{ textAlign: 'center' }}>
-          Need more?
+      {/* Bridge links */}
+      <section className="content-section">
+        <div className="section-label">Explore more</div>
+        <h2>Other ways to work with us</h2>
+        <div className="compare-grid">
+          <Link href="/designs" className="compare-card" style={{ textDecoration: 'none' }}>
+            <div className="compare-tag">Design Library</div>
+            <h4>Find a design. Get the spec.</h4>
+            <p style={{ fontSize: 13, color: '#888', lineHeight: 1.6 }}>
+              30+ named, spec-ready patterns. Browse by application, sector, or
+              surface type. Select your design and download the spec immediately.
+            </p>
+          </Link>
+          <Link href="/studio" className="compare-card" style={{ textDecoration: 'none' }}>
+            <div className="compare-tag">Studio</div>
+            <h4>Too complex for digital?</h4>
+            <p style={{ fontSize: 13, color: '#888', lineHeight: 1.6 }}>
+              Sculptural ceilings, fin facades, and one-of-one solutions require
+              hands-on engineering. Send us the challenge.
+            </p>
+          </Link>
         </div>
-        <h2 style={{ margin: '0 auto 16px', maxWidth: 600 }}>
-          Too complex for digital?
-        </h2>
-        <p
-          className="section-desc"
-          style={{ margin: '0 auto 32px', textAlign: 'center' }}
-        >
-          Sculptural ceilings, fin facades, and one-of-one solutions require
-          hands-on engineering. Our Studio team handles the projects that can&apos;t
-          be configured.
-        </p>
-        <Link href="/studio" className="section-link" style={{ justifyContent: 'center' }}>
-          Explore Studio <span>&rarr;</span>
-        </Link>
       </section>
 
       {/* Page CTAs */}

@@ -275,7 +275,7 @@ export default function HomeClient() {
             />
             <div className="path-card-icon">{'\u25CE'}</div>
             <h3>Design Library</h3>
-            <p>30+ named, spec-ready patterns. Filter by application, sector, or illuminated. Pick one and spec it.</p>
+            <p>Find a design. Explore the family. Get the spec. 30+ named patterns ready for your construction documents.</p>
             <div className="path-card-cta">Browse Designs &rarr;</div>
           </Link>
           <Link className="path-card fade-up" href="/makereal">
@@ -285,8 +285,8 @@ export default function HomeClient() {
             />
             <div className="path-card-icon">{'\u2726'}</div>
             <h3>MakeReal</h3>
-            <p>Configure dimensions. Generate a design with AI. Get shop drawings and a spec in minutes.</p>
-            <div className="path-card-cta">Configure &amp; Generate &rarr;</div>
+            <p>Design something new. AI-assisted tools to generate custom patterns and push creative boundaries.</p>
+            <div className="path-card-cta">Create a Design &rarr;</div>
           </Link>
           <Link className="path-card fade-up" href="/studio">
             <div
@@ -295,7 +295,7 @@ export default function HomeClient() {
             />
             <div className="path-card-icon">{'\u25C6'}</div>
             <h3>Studio</h3>
-            <p>Too complex for digital. Bring us the challenge — sculptural ceilings, fin facades, one-of-one solutions.</p>
+            <p>Too complex for digital. Send us the challenge — sculptural ceilings, fin facades, one-of-one solutions.</p>
             <div className="path-card-cta">Send Us the Challenge &rarr;</div>
           </Link>
         </div>
