@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing image_url or prompt' }, { status: 400 });
     }
 
-    const res = await fetch('https://fal.run/fal-ai/nano-banana-2/edit', {
+    const res = await fetch('https://fal.run/fal-ai/nano-banana-pro/edit', {
       method: 'POST',
       headers: {
         Authorization: `Key ${process.env.FAL_API_KEY}`,

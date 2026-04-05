@@ -8,27 +8,29 @@ interface MakeRealVisualizerProps {
 }
 
 const SPACES = [
+  { value: 'hospital-nursing', label: 'Hospital Nursing Station' },
   { value: 'healthcare-lobby', label: 'Healthcare Lobby' },
   { value: 'hotel-lobby', label: 'Hotel Lobby' },
   { value: 'elevator-lobby', label: 'Elevator Lobby' },
-  { value: 'reception', label: 'Reception' },
+  { value: 'reception', label: 'Reception Desk' },
   { value: 'corporate-office', label: 'Corporate Office' },
   { value: 'restaurant', label: 'Restaurant' },
-  { value: 'residential', label: 'Residential' },
+  { value: 'residential', label: 'Residential Living Room' },
 ] as const;
 
 const PROMPT_MAP: Record<string, string> = {
-  'healthcare-lobby': '3d carved feature wall in white corian billow design inside a modern healthcare lobby, clean bright calming, architectural photography',
-  'hotel-lobby': '3d carved feature wall in white corian billow design inside a luxury hotel lobby, dramatic lighting, high ceiling, architectural photography',
-  'elevator-lobby': '3d carved feature wall in white corian billow design inside an elevator lobby, seamless modern, architectural photography',
-  'reception': '3d carved feature wall in white corian billow design behind a reception desk, corporate polished, architectural photography',
-  'corporate-office': '3d carved feature wall in white corian billow design inside a corporate office lobby, professional modern, architectural photography',
-  'restaurant': '3d carved feature wall in white corian billow design inside a high-end restaurant, warm ambient lighting, architectural photography',
-  'residential': '3d carved feature wall in white corian billow design inside a luxury residence living room, contemporary, architectural photography',
+  'hospital-nursing': 'take this exact design of a 3d carved wall and place it inside a hospital behind a nursing station.',
+  'healthcare-lobby': 'take this exact design of a 3d carved wall and place it inside a modern healthcare lobby with clean bright calming lighting.',
+  'hotel-lobby': 'take this exact design of a 3d carved wall and place it inside a luxury hotel lobby with dramatic lighting and high ceilings.',
+  'elevator-lobby': 'take this exact design of a 3d carved wall and place it inside a modern elevator lobby.',
+  'reception': 'take this exact design of a 3d carved wall and place it behind a reception desk in a polished corporate space.',
+  'corporate-office': 'take this exact design of a 3d carved wall and place it inside a corporate office lobby.',
+  'restaurant': 'take this exact design of a 3d carved wall and place it inside a high-end restaurant with warm ambient lighting.',
+  'residential': 'take this exact design of a 3d carved wall and place it inside a luxury residence living room with contemporary furnishings.',
 };
 
 export default function MakeRealVisualizer({ designName, referenceImageUrl }: MakeRealVisualizerProps) {
-  const [space, setSpace] = useState('healthcare-lobby');
+  const [space, setSpace] = useState('hospital-nursing');
   const [illuminated, setIlluminated] = useState(false);
   const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
   const [resultUrl, setResultUrl] = useState('');
@@ -39,8 +41,8 @@ export default function MakeRealVisualizer({ designName, referenceImageUrl }: Ma
 
     const basePrompt = PROMPT_MAP[space] || PROMPT_MAP['healthcare-lobby'];
     const suffix = illuminated
-      ? ', backlit with warm amber LED glow, translucent corian'
-      : ', natural lighting, no backlighting';
+      ? ' Make the wall backlit with a warm amber LED glow through translucent white corian.'
+      : '';
     const prompt = basePrompt + suffix;
 
     try {
