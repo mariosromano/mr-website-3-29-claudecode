@@ -6,14 +6,14 @@ import Link from 'next/link';
 import type { DesignFamily } from '@/lib/airtable';
 import SpecConfigurator from '@/components/SpecConfigurator';
 import DesignAssistForm from '@/components/DesignAssistForm';
-import SampleRequestForm from '@/components/SampleRequestForm';
+import MakeRealVisualizer from '@/components/MakeRealVisualizer';
 
 interface FamilyClientProps {
   family: DesignFamily;
   relatedFamilies: DesignFamily[];
 }
 
-type ActivePanel = null | 'assist' | 'spec' | 'sample';
+type ActivePanel = null | 'assist' | 'spec' | 'makereal';
 
 // Known descriptions — fallback when Airtable description is empty
 const KNOWN_DESCRIPTIONS: Record<string, string> = {
@@ -86,6 +86,7 @@ export default function FamilyClient({ family, relatedFamilies }: FamilyClientPr
         <div className="section-label">What would you like to do with this design?</div>
         <div className="family-actions">
           <button
+            data-panel="assist"
             className={`family-action-btn ${activePanel === 'assist' ? 'active' : ''}`}
             onClick={() => togglePanel('assist')}
           >
@@ -93,6 +94,7 @@ export default function FamilyClient({ family, relatedFamilies }: FamilyClientPr
             Design Assist
           </button>
           <button
+            data-panel="spec"
             className={`family-action-btn ${activePanel === 'spec' ? 'active' : ''}`}
             onClick={() => togglePanel('spec')}
           >
@@ -100,13 +102,22 @@ export default function FamilyClient({ family, relatedFamilies }: FamilyClientPr
             Get the Spec
           </button>
           <button
-            className={`family-action-btn ${activePanel === 'sample' ? 'active' : ''}`}
-            onClick={() => togglePanel('sample')}
+            data-panel="makereal"
+            className={`family-action-btn ${activePanel === 'makereal' ? 'active' : ''}`}
+            onClick={() => togglePanel('makereal')}
           >
             <span className="family-action-icon">&#10022;</span>
-            Request a Corian Sample
+            See {family.name} with MakeReal
           </button>
         </div>
+
+        {/* Sample link — moved below buttons */}
+        <p style={{ fontSize: 13, color: '#888', marginTop: 16 }}>
+          Need a physical material sample?{' '}
+          <Link href="/contact" style={{ color: '#c8b89a', fontWeight: 500 }}>
+            Request one here &rarr;
+          </Link>
+        </p>
 
         {/* INLINE PANELS */}
         {activePanel === 'assist' && (
@@ -119,9 +130,12 @@ export default function FamilyClient({ family, relatedFamilies }: FamilyClientPr
             <SpecConfigurator family={family} />
           </div>
         )}
-        {activePanel === 'sample' && (
+        {activePanel === 'makereal' && (
           <div className="family-panel">
-            <SampleRequestForm designName={family.name} />
+            <MakeRealVisualizer
+              designName={family.name}
+              referenceImageUrl={family.heroImage}
+            />
           </div>
         )}
       </section>
