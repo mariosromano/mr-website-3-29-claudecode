@@ -10,7 +10,7 @@ interface SpecConfiguratorProps {
 type SurfaceType = 'standard' | 'illuminated';
 
 const COLORS = [
-  { id: 'glacier-white', name: 'Glacier White', hex: '#e8e4dc', standardOnly: false, note: 'Required for ✦' },
+  { id: 'glacier-white', name: 'Glacier White', hex: '#e8e4dc', standardOnly: false, note: 'Required for \u2726' },
   { id: 'designer-white', name: 'Designer White', hex: '#f5f0e8', standardOnly: true, note: 'Standard only' },
   { id: 'deep-nocturne', name: 'Deep Nocturne', hex: '#1a1a18', standardOnly: true, note: 'Standard only' },
   { id: 'other', name: 'Other Color', hex: '#888', standardOnly: true, note: 'Ask us' },
@@ -23,7 +23,6 @@ export default function SpecConfigurator({ family }: SpecConfiguratorProps) {
   const [colorId, setColorId] = useState('glacier-white');
   const [copied, setCopied] = useState(false);
 
-  // Auto-select Glacier White when illuminated
   const handleSurfaceChange = (type: SurfaceType) => {
     setSurfaceType(type);
     if (type === 'illuminated') {
@@ -35,13 +34,31 @@ export default function SpecConfigurator({ family }: SpecConfiguratorProps) {
 
   const specText = useMemo(() => {
     const typeName = surfaceType === 'illuminated' ? 'Illuminated' : 'Standard';
-    return `SECTION 09 77 00 — SPECIAL WALL SURFACING
-MANUFACTURER: Mario Romano Walls / M|R Walls, Romano Studio LLC, Los Angeles, CA
-PRODUCT: Design: ${family.name}, Type: ${typeName}, Color: ${selectedColor.name}, System: InterlockPanel\u2122
-CERTIFICATIONS: GREENGUARD Gold, NSF/ANSI 51, Antimicrobial, Bleach-Safe, Zero Joints
-MATERIAL: DuPont\u2122 Corian\u00AE Solid Surface, 1/2" (12mm) nominal thickness
-FABRICATION: CNC-machined, factory-finished panels with interlocking tongue-and-groove edges
-INSTALLATION: Concealed mechanical fastening per manufacturer\u2019s written instructions`;
+    return `SECTION 09 77 00 \u2014 SPECIAL WALL SURFACING
+
+MARK: MRW
+
+MANUFACTURER:
+  Mario Romano Walls / M|R Walls
+  Romano Studio LLC
+  2314 Michigan Ave, Santa Monica CA 90404
+  orders@marioromano.com
+  mrwalls.io
+
+PRODUCT:
+  Design: ${family.name}
+  Product Type: ${typeName}
+  Color: ${selectedColor.name}
+  System: Patented InterlockPanel\u2122
+
+  DuPont\u2122 Corian\u00AE Exclusive North American Wall Partner
+  Sole-source specifiable \u2014 no approved substitutions
+
+CERTIFICATIONS:
+  GREENGUARD\u00AE Certified
+  NSF/ANSI 51 \u2014 FDA Approved
+  Antimicrobial \u2014 Bleach-Safe \u2014 Zero Joints
+  Exterior Rated: -40\u00B0F to 140\u00B0F | UV Stable`;
   }, [family.name, surfaceType, selectedColor.name]);
 
   const handleCopy = async () => {
@@ -62,6 +79,10 @@ INSTALLATION: Concealed mechanical fastening per manufacturer\u2019s written ins
 
   return (
     <div className="spec-configurator">
+      <p style={{ fontSize: 14, color: '#888', marginBottom: 8 }}>
+        CSI spec language ready to paste into your drawings.
+      </p>
+
       {/* Choice 1 — Does it glow? */}
       <div className="spec-section">
         <div className="spec-section-label">Does it glow?</div>
@@ -119,7 +140,7 @@ INSTALLATION: Concealed mechanical fastening per manufacturer\u2019s written ins
           {copied ? 'Copied!' : 'Copy Spec'}
         </button>
         <button className="spec-btn secondary" onClick={handleDownload}>
-          Download .txt
+          Download PDF
         </button>
       </div>
     </div>

@@ -36,7 +36,8 @@ const APPLICATIONS = [
 ] as const;
 
 const SURFACES = ['All', 'Illuminated', 'Standard'] as const;
-const COLLECTIONS = ['Spec-Ready', 'All'] as const;
+const SYSTEMS = ['All', 'Ribs', 'Fins', 'Slice', 'Screen'] as const;
+const SORT_OPTIONS = ['Random', 'Most Popular'] as const;
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -54,16 +55,17 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
   const [sector, setSector] = useState<string>('All');
   const [application, setApplication] = useState<string>('All');
   const [surface, setSurface] = useState<string>('All');
-  const [collection, setCollection] = useState<string>('Spec-Ready');
+  const [system, setSystem] = useState<string>('All');
+  const [sortBy, setSortBy] = useState<string>('Random');
   const [search, setSearch] = useState('');
 
-  // Modal state (for Custom / orphan products)
+  // Modal state (for Custom / orphan products — simple inquiry form)
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
-  const [modalStep, setModalStep] = useState<'intent' | 'capture' | 'done'>('intent');
-  const [intent, setIntent] = useState('');
   const [formName, setFormName] = useState('');
   const [formEmail, setFormEmail] = useState('');
   const [formFirm, setFormFirm] = useState('');
+  const [formMessage, setFormMessage] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // Sticky bar state
   const [showSticky, setShowSticky] = useState(false);
@@ -90,12 +92,15 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
 
   // Filter logic
   const filtered = useMemo(() => {
-    return shuffled.filter((p) => {
+    let result = shuffled.filter((p) => {
       if (sector !== 'All' && p.sector !== sector) return false;
       if (application !== 'All' && !p.application.toLowerCase().includes(application.toLowerCase())) return false;
       if (surface === 'Illuminated' && !p.isBacklit) return false;
       if (surface === 'Standard' && p.isBacklit) return false;
-      if (collection === 'Spec-Ready' && !p.specReady) return false;
+      if (system !== 'All') {
+        const searchable = `${p.pattern} ${p.keywords.join(' ')} ${p.description}`.toLowerCase();
+        if (!searchable.includes(system.toLowerCase())) return false;
+      }
       if (search) {
         const q = search.toLowerCase();
         const searchable = `${p.pattern} ${p.patternFamily} ${p.title} ${p.sector} ${p.keywords.join(' ')} ${p.description} ${p.application}`.toLowerCase();
@@ -103,12 +108,23 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
       }
       return true;
     });
-  }, [shuffled, sector, application, surface, collection, search]);
+
+    // Sort
+    if (sortBy === 'Most Popular') {
+      result = [...result].sort((a, b) => {
+        const countA = clickCounts[a.pattern] || 0;
+        const countB = clickCounts[b.pattern] || 0;
+        return countB - countA;
+      });
+    }
+
+    return result;
+  }, [shuffled, sector, application, surface, system, search, sortBy, clickCounts]);
 
   // Click tracking
   const trackClick = useCallback(
     (designName: string) => {
-      const activeFilters = { sector, surface, collection, search };
+      const activeFilters = { sector, surface, system, search };
       fetch('/api/track-click', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -119,10 +135,10 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
         }),
       }).catch(() => {});
     },
-    [sector, surface, collection, search]
+    [sector, surface, system, search]
   );
 
-  // Card click: family → navigate, orphan → modal
+  // Card click: family → navigate, orphan → inquiry modal
   const handleCardClick = (product: Product) => {
     trackClick(product.pattern);
     const familySlug = familySlugMap[product.id];
@@ -135,25 +151,31 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
 
   const openModal = (product: Product) => {
     setModalProduct(product);
-    setModalStep('intent');
-    setIntent('');
     setFormName('');
     setFormEmail('');
     setFormFirm('');
+    setFormMessage('');
+    setFormSubmitted(false);
   };
 
   const closeModal = () => setModalProduct(null);
 
-  const handleCapture = (e: React.FormEvent) => {
+  const handleInquiry = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('[Capture]', {
-      intent,
-      name: formName,
-      email: formEmail,
-      firm: formFirm,
-      design: modalProduct?.pattern,
-    });
-    setModalStep('done');
+    try {
+      await fetch('/api/design-assist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          design: modalProduct?.pattern,
+          name: formName,
+          email: formEmail,
+          firm: formFirm,
+          projectName: formMessage,
+        }),
+      });
+    } catch { /* fire and forget */ }
+    setFormSubmitted(true);
   };
 
   const handleStickySubmit = (e: React.FormEvent) => {
@@ -249,17 +271,33 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
             </div>
           </div>
 
-          {/* Collection */}
+          {/* System */}
           <div className="designs-filter-group">
-            <span className="designs-filter-label">Collection</span>
+            <span className="designs-filter-label">System</span>
             <div className="designs-chip-row">
-              {COLLECTIONS.map((c) => (
+              {SYSTEMS.map((s) => (
                 <button
-                  key={c}
-                  onClick={() => setCollection(c)}
-                  className={`designs-chip ${collection === c ? 'active' : ''}`}
+                  key={s}
+                  onClick={() => setSystem(s)}
+                  className={`designs-chip ${system === s ? 'active' : ''}`}
                 >
-                  {c}
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Sort */}
+          <div className="designs-filter-group">
+            <span className="designs-filter-label">Sort</span>
+            <div className="designs-chip-row">
+              {SORT_OPTIONS.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSortBy(s)}
+                  className={`designs-chip ${sortBy === s ? 'active' : ''}`}
+                >
+                  {s}
                 </button>
               ))}
             </div>
@@ -281,17 +319,15 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
                 sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 style={{ objectFit: 'cover' }}
               />
+              {/* Gradient overlay with name */}
+              <div className="designs-card-overlay">
+                <div className="designs-card-name">{p.pattern}</div>
+              </div>
+              {/* Badges */}
               <div className="designs-card-badges">
                 {p.specReady && <span className="designs-badge spec-ready">Spec-Ready</span>}
                 {isCustomOrOrphan(p) && <span className="designs-badge studio">Studio</span>}
                 {p.isBacklit && <span className="designs-badge illuminated">✦</span>}
-              </div>
-            </div>
-            <div className="designs-card-info">
-              <div className="designs-card-name">{p.pattern}</div>
-              <div className="designs-card-meta">
-                {p.patternFamily && p.patternFamily !== 'Custom' ? p.patternFamily : ''}
-                {p.sector !== 'General' ? (p.patternFamily ? ` · ${p.sector}` : p.sector) : ''}
               </div>
             </div>
           </div>
@@ -302,7 +338,7 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
         <div className="designs-empty">
           <p>No designs match your current filters.</p>
           <button
-            onClick={() => { setSector('All'); setApplication('All'); setSurface('All'); setCollection('All'); setSearch(''); }}
+            onClick={() => { setSector('All'); setApplication('All'); setSurface('All'); setSystem('All'); setSearch(''); setSortBy('Random'); }}
             className="designs-chip active"
           >
             Clear all filters
@@ -310,7 +346,7 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
         </div>
       )}
 
-      {/* MODAL (Custom/orphan products) */}
+      {/* INQUIRY MODAL (Custom/orphan products — simple form, no intent grid) */}
       {modalProduct && (
         <div className="designs-overlay" onClick={closeModal}>
           <div className="designs-modal" onClick={(e) => e.stopPropagation()}>
@@ -325,46 +361,21 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
               />
             </div>
             <h2 className="designs-modal-title">{modalProduct.pattern}</h2>
-            <p className="designs-modal-desc">{modalProduct.title}</p>
+            <p className="designs-modal-desc">
+              This is a custom/studio design. Tell us about your project and we&apos;ll follow up.
+            </p>
 
-            {modalStep === 'intent' && (
-              <div className="designs-intent-grid">
-                {[
-                  { label: 'Spec this design', value: 'spec' },
-                  { label: 'Request a sample', value: 'sample' },
-                  { label: 'Get pricing', value: 'pricing' },
-                  { label: 'Just browsing', value: 'browsing' },
-                ].map((opt) => (
-                  <button
-                    key={opt.value}
-                    className="designs-intent-btn"
-                    onClick={() => {
-                      setIntent(opt.value);
-                      if (opt.value === 'browsing') {
-                        setModalStep('done');
-                      } else {
-                        setModalStep('capture');
-                      }
-                    }}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {modalStep === 'capture' && (
-              <form onSubmit={handleCapture} className="designs-capture-form">
-                <input type="text" placeholder="Name" value={formName} onChange={(e) => setFormName(e.target.value)} required className="designs-input" />
-                <input type="email" placeholder="Email" value={formEmail} onChange={(e) => setFormEmail(e.target.value)} required className="designs-input" />
-                <input type="text" placeholder="Firm (optional)" value={formFirm} onChange={(e) => setFormFirm(e.target.value)} className="designs-input" />
-                <button type="submit" className="designs-submit-btn">Submit</button>
+            {!formSubmitted ? (
+              <form onSubmit={handleInquiry} className="designs-capture-form">
+                <input type="text" placeholder="Name *" value={formName} onChange={(e) => setFormName(e.target.value)} required className="designs-input" />
+                <input type="email" placeholder="Email *" value={formEmail} onChange={(e) => setFormEmail(e.target.value)} required className="designs-input" />
+                <input type="text" placeholder="Firm" value={formFirm} onChange={(e) => setFormFirm(e.target.value)} className="designs-input" />
+                <textarea placeholder="Tell us about your project..." value={formMessage} onChange={(e) => setFormMessage(e.target.value)} className="designs-input designs-textarea" rows={3} />
+                <button type="submit" className="designs-submit-btn">Send Inquiry</button>
               </form>
-            )}
-
-            {modalStep === 'done' && (
+            ) : (
               <div className="designs-done-msg">
-                <p>Thank you! We&apos;ll be in touch.</p>
+                <p>Thank you! We&apos;ll be in touch within 24 hours.</p>
                 <button onClick={closeModal} className="designs-submit-btn">Close</button>
               </div>
             )}
