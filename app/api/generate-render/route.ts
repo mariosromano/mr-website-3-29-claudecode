@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        image_url,
+        image_urls: [image_url],
         prompt,
         image_size: 'landscape_16_9',
       }),
