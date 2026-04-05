@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 const AIRTABLE_PAT = process.env.AIRTABLE_PAT!;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID!;
 const AIRTABLE_PRODUCTS_TABLE = process.env.AIRTABLE_PRODUCTS_TABLE!;
@@ -34,7 +36,7 @@ export function slugify(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
-export async function getProducts(): Promise<Product[]> {
+export const getProducts = cache(async function getProducts(): Promise<Product[]> {
   const allRecords: any[] = [];
   let offset: string | undefined;
 
@@ -45,15 +47,20 @@ export async function getProducts(): Promise<Product[]> {
     url.searchParams.set('pageSize', '100');
     if (offset) url.searchParams.set('offset', offset);
 
-    const res = await fetch(url.toString(), {
-      headers: {
-        Authorization: `Bearer ${AIRTABLE_PAT}`,
-        'Content-Type': 'application/json',
-      },
-      next: { revalidate: 300 },
-    });
+    let res: Response | undefined;
+    for (let attempt = 0; attempt < 4; attempt++) {
+      res = await fetch(url.toString(), {
+        headers: {
+          Authorization: `Bearer ${AIRTABLE_PAT}`,
+          'Content-Type': 'application/json',
+        },
+        next: { revalidate: 300 },
+      });
+      if (res.status !== 429) break;
+      await new Promise((r) => setTimeout(r, 1000 * (attempt + 1)));
+    }
 
-    if (!res.ok) throw new Error(`Airtable error: ${res.status}`);
+    if (!res || !res.ok) throw new Error(`Airtable error: ${res?.status}`);
     const data = await res.json();
     allRecords.push(...data.records);
     offset = data.offset;
@@ -65,7 +72,7 @@ export async function getProducts(): Promise<Product[]> {
       return {
         id: f.id || r.id,
         pattern: f.pattern || 'Custom',
-        patternFamily: f.patternFamily || '',
+        patternFamily: f.patternFamily || f.design_family || f.pattern || '',
         title: f.title || f.pattern || 'Untitled',
         sector: f.sector || 'General',
         isBacklit: f.isBacklit || false,
@@ -81,7 +88,7 @@ export async function getProducts(): Promise<Product[]> {
       };
     })
     .filter((p: Product) => p.cloudinaryUrl.includes('res.cloudinary.com'));
-}
+});
 
 export async function getClickCounts(): Promise<Record<string, number>> {
   const counts: Record<string, number> = {};

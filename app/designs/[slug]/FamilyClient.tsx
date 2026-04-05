@@ -15,6 +15,11 @@ interface FamilyClientProps {
 
 type ActivePanel = null | 'assist' | 'spec' | 'sample';
 
+// Known descriptions — fallback when Airtable description is empty
+const KNOWN_DESCRIPTIONS: Record<string, string> = {
+  Billow: 'Soft, sweeping lines flow like leaves of a thriving plant. Billow brings calm and movement to any space.',
+};
+
 export default function FamilyClient({ family, relatedFamilies }: FamilyClientProps) {
   const [heroImage, setHeroImage] = useState(family.heroImage);
   const [activePanel, setActivePanel] = useState<ActivePanel>(null);
@@ -42,18 +47,10 @@ export default function FamilyClient({ family, relatedFamilies }: FamilyClientPr
           <div className="section-label">Design Library</div>
           <h1 className="family-hero-title">{family.name}</h1>
           <div className="family-hero-badges">
-            {family.specReady && (
-              <span className="family-badge">Spec-Ready</span>
-            )}
+            <span className="family-badge">Spec-Ready</span>
             {family.hasIlluminated && (
               <span className="family-badge">✦ Illuminated</span>
             )}
-            {family.hasStandard && (
-              <span className="family-badge">Standard</span>
-            )}
-            {family.sectors.map((s) => (
-              <span key={s} className="family-badge">{s}</span>
-            ))}
           </div>
         </div>
       </section>
@@ -81,16 +78,9 @@ export default function FamilyClient({ family, relatedFamilies }: FamilyClientPr
 
       {/* DESCRIPTION */}
       <section className="content-section">
-        {family.description && (
-          <p style={{ fontSize: 15, color: '#e8e4dc', lineHeight: 1.7, maxWidth: 700, marginBottom: 32 }}>
-            {family.description}
-          </p>
-        )}
-        {!family.description && (
-          <p style={{ fontSize: 15, color: '#e8e4dc', lineHeight: 1.7, maxWidth: 700, marginBottom: 32 }}>
-            {family.name} is a CNC-carved Corian design family{family.hasIlluminated ? ' available as a backlit Illuminated panel in Glacier White and' : ''} in 100+ Corian colors. Part of the M|R Walls Design Library — spec-ready patterns engineered for the InterlockPanel&#8482; system.
-          </p>
-        )}
+        <p style={{ fontSize: 15, color: '#e8e4dc', lineHeight: 1.7, maxWidth: 700, marginBottom: 32 }}>
+          {KNOWN_DESCRIPTIONS[family.name] || family.description || `${family.name} is a CNC-carved Corian design family${family.hasIlluminated ? ' available as a backlit Illuminated panel in Glacier White and' : ''} in 100+ Corian colors. Part of the M\u007CR Walls Design Library \u2014 spec-ready patterns engineered for the InterlockPanel\u2122 system.`}
+        </p>
 
         {/* ACTION BUTTONS */}
         <div className="section-label">What would you like to do with this design?</div>
@@ -114,7 +104,7 @@ export default function FamilyClient({ family, relatedFamilies }: FamilyClientPr
             onClick={() => togglePanel('sample')}
           >
             <span className="family-action-icon">&#10022;</span>
-            Request a Sample
+            Request a Corian Sample
           </button>
         </div>
 

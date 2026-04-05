@@ -325,8 +325,8 @@ export default function DesignsClient({ products, clickCounts, familySlugMap }: 
               </div>
               {/* Badges */}
               <div className="designs-card-badges">
-                {p.specReady && <span className="designs-badge spec-ready">Spec-Ready</span>}
-                {isCustomOrOrphan(p) && <span className="designs-badge studio">Studio</span>}
+                {familySlugMap[p.id] && <span className="designs-badge spec-ready">Spec-Ready</span>}
+                {!familySlugMap[p.id] && <span className="designs-badge studio">Studio</span>}
                 {p.isBacklit && <span className="designs-badge illuminated">✦</span>}
               </div>
             </div>

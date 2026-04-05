@@ -11,23 +11,11 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const products = await getProducts();
-  const families = groupIntoFamilies(products);
-  const family = families.find((f) => f.slug === slug);
-
-  // Fallback: try matching individual product by title/pattern (backwards compat)
-  if (!family) {
-    const design = products.find((p) => slugify(p.title) === slug || slugify(p.pattern) === slug);
-    if (!design) return { title: 'Design Not Found — M|R Walls' };
-    return {
-      title: `${design.title} — M|R Walls Design Library`,
-      description: design.description || `${design.title} — CNC-carved Corian design by M|R Walls.`,
-    };
-  }
-
+  // Derive name from slug to avoid extra Airtable calls during build
+  const name = slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   return {
-    title: `${family.name} — M|R Walls Design Library`,
-    description: family.description || `${family.name} — CNC-carved Corian design family by M|R Walls.`,
+    title: `${name} — M|R Walls Design Library`,
+    description: `${name} — CNC-carved Corian design family by M|R Walls.`,
   };
 }
 
