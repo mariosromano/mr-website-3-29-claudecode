@@ -1960,17 +1960,29 @@ img { display: block; max-width: 100%; }
   color: var(--mid);
   letter-spacing: 0.02em;
 }
-.makereal-viz-pulse {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: vizPulse 1.5s ease-in-out infinite;
-  flex-shrink: 0;
+/* Progress bar */
+.makereal-progress {
+  margin-top: 16px;
 }
-@keyframes vizPulse {
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
+.makereal-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.makereal-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+.makereal-progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #888;
 }
 
 /* Result */

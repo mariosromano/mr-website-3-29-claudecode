@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface MakeRealVisualizerProps {
   designName: string;
@@ -29,11 +29,41 @@ const PROMPT_MAP: Record<string, string> = {
   'residential': 'take this exact design of a 3d carved wall and place it inside a luxury residence living room with contemporary furnishings.',
 };
 
+const ESTIMATED_TIME = 25; // seconds — typical fal.ai generation time
+
 export default function MakeRealVisualizer({ designName, referenceImageUrl }: MakeRealVisualizerProps) {
   const [space, setSpace] = useState('hospital-nursing');
   const [illuminated, setIlluminated] = useState(false);
   const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
   const [resultUrl, setResultUrl] = useState('');
+  const [progress, setProgress] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  // Progress bar timer
+  useEffect(() => {
+    if (status === 'loading') {
+      setProgress(0);
+      setElapsed(0);
+      const start = Date.now();
+      timerRef.current = setInterval(() => {
+        const secs = (Date.now() - start) / 1000;
+        setElapsed(Math.floor(secs));
+        // Ease toward 90% over estimated time, never hit 100% until done
+        const pct = Math.min(90, (secs / ESTIMATED_TIME) * 85);
+        setProgress(pct);
+      }, 200);
+    } else {
+      if (status === 'done') setProgress(100);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [status]);
 
   const handleGenerate = async () => {
     setStatus('loading');
@@ -66,6 +96,24 @@ export default function MakeRealVisualizer({ designName, referenceImageUrl }: Ma
       setStatus('done');
     } catch {
       setStatus('error');
+    }
+  };
+
+  const handleDownload = async () => {
+    if (!resultUrl) return;
+    try {
+      const res = await fetch(resultUrl);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${designName}-${SPACES.find((s) => s.value === space)?.label || space}.png`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch {
+      window.open(resultUrl, '_blank');
     }
   };
 
@@ -128,11 +176,19 @@ export default function MakeRealVisualizer({ designName, referenceImageUrl }: Ma
         {status === 'loading' ? 'Generating...' : 'Generate \u2192'}
       </button>
 
-      {/* Loading state */}
+      {/* Progress bar */}
       {status === 'loading' && (
-        <div className="makereal-viz-loading">
-          <div className="makereal-viz-pulse" />
-          <p>Rendering {designName} in your space...</p>
+        <div className="makereal-progress">
+          <div className="makereal-progress-bar">
+            <div
+              className="makereal-progress-fill"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <div className="makereal-progress-info">
+            <span>Rendering {designName}...</span>
+            <span>{elapsed}s / ~{ESTIMATED_TIME}s</span>
+          </div>
         </div>
       )}
 
@@ -152,8 +208,10 @@ export default function MakeRealVisualizer({ designName, referenceImageUrl }: Ma
             className="makereal-viz-image"
           />
           <div className="makereal-viz-cta">
-            <p>Like what you see?</p>
             <div className="makereal-viz-cta-links">
+              <button className="spec-btn" onClick={handleDownload}>
+                Download Image
+              </button>
               <button className="section-link" onClick={() => scrollToPanel('assist')}>
                 Start Design Assist &rarr;
               </button>
