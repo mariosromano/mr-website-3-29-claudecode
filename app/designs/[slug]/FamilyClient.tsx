@@ -20,6 +20,11 @@ const KNOWN_DESCRIPTIONS: Record<string, string> = {
   Billow: 'Soft, sweeping lines flow like leaves of a thriving plant. Billow brings calm and movement to any space.',
 };
 
+// Clean stock textures for MakeReal AI generation (better results than Airtable hero images)
+const MAKEREAL_STOCK_IMAGES: Record<string, string> = {
+  Billow: 'https://res.cloudinary.com/dtlodxxio/image/upload/v1775404766/makereal/billow/billow-white-12x12-stock.png',
+};
+
 export default function FamilyClient({ family, relatedFamilies }: FamilyClientProps) {
   const [heroImage, setHeroImage] = useState(family.heroImage);
   const [activePanel, setActivePanel] = useState<ActivePanel>(null);
@@ -134,7 +139,7 @@ export default function FamilyClient({ family, relatedFamilies }: FamilyClientPr
           <div className="family-panel">
             <MakeRealVisualizer
               designName={family.name}
-              referenceImageUrl={family.heroImage}
+              referenceImageUrl={MAKEREAL_STOCK_IMAGES[family.name] || family.heroImage}
             />
           </div>
         )}

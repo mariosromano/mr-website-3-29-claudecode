@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const maxDuration = 60;
+
 export async function POST(request: NextRequest) {
   try {
     const { image_url, prompt } = await request.json();
