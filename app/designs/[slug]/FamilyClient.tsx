@@ -73,7 +73,7 @@ export default function FamilyClient({ family, relatedFamilies }: FamilyClientPr
                 src={p.cloudinaryUrl}
                 alt={p.title}
                 fill
-                sizes="120px"
+                sizes="200px"
                 style={{ objectFit: 'cover' }}
               />
             </button>
