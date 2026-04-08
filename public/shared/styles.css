@@ -1127,40 +1127,37 @@ img { display: block; max-width: 100%; }
   min-height: 100vh;
 }
 
-/* Hero */
-.designs-hero {
-  padding: calc(var(--section-pad) + 80px) 48px 60px;
-  border-bottom: 1px solid var(--border);
+/* Compact header */
+.designs-header {
+  padding: calc(var(--section-pad) + 70px) 48px 0;
 }
-.designs-hero-title {
+.designs-header-top {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.designs-header-title {
   font-family: 'Instrument Serif', serif;
-  font-size: 42px;
+  font-size: 32px;
   font-weight: 400;
   line-height: 1.2;
-  letter-spacing: -0.01em;
 }
-.designs-hero-desc {
-  font-size: 15px;
+.designs-header-count {
+  font-size: 13px;
   color: var(--mid);
-  margin-top: 16px;
-  max-width: 600px;
-  line-height: 1.6;
 }
 
 /* Search */
-.designs-filter-section {
-  padding: 40px 48px;
-  border-bottom: 1px solid var(--border);
-}
 .designs-search-input {
   width: 100%;
-  max-width: 600px;
-  padding: 14px 20px;
+  max-width: 500px;
+  padding: 12px 18px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 6px;
   color: var(--white);
-  font-size: 16px;
+  font-size: 15px;
   font-family: 'DM Sans', sans-serif;
   margin-bottom: 16px;
   outline: none;
@@ -1174,40 +1171,45 @@ img { display: block; max-width: 100%; }
   font-size: 14px;
 }
 
-/* Popular pills */
-.designs-pills-row {
+/* Collection tabs */
+.designs-tabs {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
 }
-.designs-pill {
-  font-size: 12px;
+.designs-tab {
+  font-size: 13px;
   letter-spacing: 0.04em;
   color: var(--mid);
-  padding: 6px 14px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-bottom: 2px solid transparent;
   cursor: pointer;
   background: none;
   font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
   transition: all 0.2s;
 }
-.designs-pill:hover {
-  border-color: rgba(200,184,154,0.3);
+.designs-tab:hover {
   color: var(--white);
 }
+.designs-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
 
-/* Compact filters */
-.designs-filters-compact {
+/* Filters row */
+.designs-filters-row {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 12px 0 16px;
 }
 .designs-filter-group {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 .designs-filter-label {
@@ -1215,19 +1217,18 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.1em;
   color: var(--mid);
   text-transform: uppercase;
-  min-width: 80px;
   font-weight: 500;
 }
 .designs-chip-row {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   flex-wrap: wrap;
 }
 .designs-chip {
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  font-size: 11px;
+  letter-spacing: 0.04em;
   color: var(--mid);
-  padding: 5px 12px;
+  padding: 4px 10px;
   border: 1px solid var(--border);
   border-radius: 20px;
   cursor: pointer;
@@ -1245,18 +1246,12 @@ img { display: block; max-width: 100%; }
   border-color: var(--accent);
   background: rgba(200,184,154,0.08);
 }
-.designs-result-count {
-  font-size: 12px;
-  color: var(--mid);
-  margin-top: 16px;
-  letter-spacing: 0.04em;
-}
 
 /* Masonry grid (CSS columns) */
 .designs-masonry {
   column-count: 4;
   column-gap: 16px;
-  padding: 48px;
+  padding: 16px 48px 48px;
 }
 .designs-card {
   break-inside: avoid;
@@ -1502,10 +1497,10 @@ img { display: block; max-width: 100%; }
   .designs-masonry { column-count: 3; }
 }
 @media (max-width: 768px) {
-  .designs-hero { padding: calc(var(--section-pad) + 60px) 24px 48px; }
-  .designs-hero-title { font-size: 32px; }
-  .designs-filter-section { padding: 24px; }
-  .designs-masonry { column-count: 2; padding: 24px; }
+  .designs-header { padding: calc(var(--section-pad) + 60px) 24px 0; }
+  .designs-header-title { font-size: 26px; }
+  .designs-filters-row { gap: 12px; flex-direction: column; }
+  .designs-masonry { column-count: 2; padding: 12px 24px 24px; }
   .designs-sticky-bar { padding: 14px 24px; }
 }
 @media (max-width: 480px) {
