@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { cloudinaryUrl } from '@/lib/data/cloudinary';
 import { getInteriorApplications, getExteriorApplications } from '@/lib/data/applications';
+import { getApplicationImages } from '@/lib/airtable';
 import PageCTAs from '@/components/PageCTAs';
 
 export const metadata = {
@@ -8,13 +10,29 @@ export const metadata = {
   description: 'Explore M|R Walls applications: elevator lobbies, feature walls, facades, ceilings, water features, and more.',
 };
 
-export default function ApplicationsPage() {
+async function getHeroForApp(appName: string): Promise<string | undefined> {
+  try {
+    const images = await getApplicationImages(appName);
+    const hero = images.find((p) => p.applicationHero) || images[0];
+    return hero?.cloudinaryUrl;
+  } catch {
+    return undefined;
+  }
+}
+
+export default async function ApplicationsPage() {
   const interior = getInteriorApplications();
   const exterior = getExteriorApplications();
 
+  // Fetch all hero images from Airtable in parallel
+  const allApps = [...interior, ...exterior];
+  const heroImages = await Promise.all(allApps.map((app) => getHeroForApp(app.name)));
+  const heroMap: Record<string, string | undefined> = {};
+  allApps.forEach((app, i) => { heroMap[app.slug] = heroImages[i]; });
+
   return (
     <>
-      {/* ── Hero ── */}
+      {/* Hero */}
       <section className="page-hero" style={{ paddingBottom: '48px' }}>
         <div className="section-label">Applications</div>
         <h1>What are you building?</h1>
@@ -23,7 +41,7 @@ export default function ApplicationsPage() {
         </p>
       </section>
 
-      {/* ── Healthcare Banner ── */}
+      {/* Healthcare Banner */}
       <section className="content-section" style={{ borderBottom: 'none', paddingBottom: 0 }}>
         <Link href="/healthcare" className="healthcare-banner">
           <div
@@ -47,49 +65,57 @@ export default function ApplicationsPage() {
         </Link>
       </section>
 
-      {/* ── Interior ── */}
+      {/* Interior */}
       <section className="content-section">
         <div className="track-heading">
           Interior
           <span className="track-badge">{interior.length} applications</span>
         </div>
         <div className="card-grid card-grid-2">
-          {interior.map((app) => (
-            <Link key={app.slug} className="image-card app-card-tall" href={`/applications/${app.slug}`}>
-              <div
-                className="image-card-bg"
-                style={{ backgroundImage: `url('${cloudinaryUrl(app.imageKey, 800)}')` }}
-              />
-              <div className="image-card-content">
-                <div className="image-card-title">{app.name}</div>
-                <div className="image-card-desc">{app.description.slice(0, 80)}...</div>
-              </div>
-              <div className="image-card-arrow">&rarr;</div>
-            </Link>
-          ))}
+          {interior.map((app) => {
+            const img = heroMap[app.slug];
+            return (
+              <Link key={app.slug} className="image-card app-card-tall" href={`/applications/${app.slug}`}>
+                {img ? (
+                  <div className="image-card-bg" style={{ backgroundImage: `url('${img}')` }} />
+                ) : (
+                  <div className="image-card-bg" style={{ background: '#111' }} />
+                )}
+                <div className="image-card-content">
+                  <div className="image-card-title">{app.name}</div>
+                  <div className="image-card-desc">{app.description.slice(0, 80)}...</div>
+                </div>
+                <div className="image-card-arrow">&rarr;</div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
-      {/* ── Exterior ── */}
+      {/* Exterior */}
       <section className="content-section">
         <div className="track-heading">
           Exterior
           <span className="track-badge">{exterior.length} applications</span>
         </div>
         <div className="card-grid card-grid-2">
-          {exterior.map((app) => (
-            <Link key={app.slug} className="image-card app-card-tall" href={`/applications/${app.slug}`}>
-              <div
-                className="image-card-bg"
-                style={{ backgroundImage: `url('${cloudinaryUrl(app.imageKey, 800)}')` }}
-              />
-              <div className="image-card-content">
-                <div className="image-card-title">{app.name}</div>
-                <div className="image-card-desc">{app.description.slice(0, 80)}...</div>
-              </div>
-              <div className="image-card-arrow">&rarr;</div>
-            </Link>
-          ))}
+          {exterior.map((app) => {
+            const img = heroMap[app.slug];
+            return (
+              <Link key={app.slug} className="image-card app-card-tall" href={`/applications/${app.slug}`}>
+                {img ? (
+                  <div className="image-card-bg" style={{ backgroundImage: `url('${img}')` }} />
+                ) : (
+                  <div className="image-card-bg" style={{ background: '#111' }} />
+                )}
+                <div className="image-card-content">
+                  <div className="image-card-title">{app.name}</div>
+                  <div className="image-card-desc">{app.description.slice(0, 80)}...</div>
+                </div>
+                <div className="image-card-arrow">&rarr;</div>
+              </Link>
+            );
+          })}
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 32 }}>
           {['UV-Stable', 'Hurricane-Tested', '-40°F to 140°F', 'Zero Delamination', 'NFPA'].map((cert) => (
@@ -98,7 +124,7 @@ export default function ApplicationsPage() {
         </div>
       </section>
 
-      {/* ── By Sector ── */}
+      {/* By Sector */}
       <section className="content-section">
         <div className="section-label">By Sector</div>
         <h2>Targeted solutions by industry</h2>

@@ -17,6 +17,8 @@ export interface Product {
   corianColor: string;
   application: string;
   specReady: boolean;
+  applicationHero: boolean;
+  is_hero: boolean;
 }
 
 export interface DesignFamily {
@@ -85,6 +87,8 @@ export const getProducts = cache(async function getProducts(): Promise<Product[]
         corianColor: f.corianColor || 'Glacier White',
         application: f.application || '',
         specReady: f.specReady || false,
+        applicationHero: f.applicationHero || false,
+        is_hero: f.is_hero || false,
       };
     })
     .filter((p: Product) => p.cloudinaryUrl.includes('res.cloudinary.com'));
@@ -125,6 +129,55 @@ export async function getClickCounts(): Promise<Record<string, number>> {
 
   return counts;
 }
+
+// ─── Application gallery ───────────────────────────────────────────────────
+const APP_ALIASES: Record<string, string[]> = {
+  'elevator lobbies': ['elevator lobby', 'elevator', 'lobby/reception', 'lobby', 'elevator bank'],
+  'elevator lobby': ['elevator lobby', 'elevator', 'lobby/reception', 'lobby', 'elevator bank'],
+  'reception': ['reception', 'lobby/reception', 'nurse station', 'front desk'],
+  'grand entry': ['grand entry', 'grand entrance', 'entry', 'atrium'],
+  'hallway': ['hallway', 'corridor/staircase', 'corridor', 'hallways'],
+  'ceilings': ['ceiling', 'overhead', 'canopy'],
+  'ceiling': ['ceiling', 'overhead', 'canopy'],
+  'branding': ['branding', 'branded environment', 'logo', 'branded'],
+  'feature walls': ['feature wall', 'feature/accent', 'accent wall'],
+  'feature wall': ['feature wall', 'feature/accent', 'accent wall'],
+  'facades': ['facade', 'facade/exterior', 'exterior', 'rain screen', 'fins'],
+  'facade': ['facade', 'facade/exterior', 'exterior', 'rain screen', 'fins'],
+  'water features': ['water feature', 'pool', 'water'],
+  'water feature': ['water feature', 'pool', 'water'],
+  'meditation rooms': ['meditation room', 'meditation', 'calm room', 'spiritual', 'prayer'],
+  'meditation room': ['meditation room', 'meditation', 'calm room', 'spiritual', 'prayer'],
+  'column wrap': ['column wrap', 'column/wrap', 'column'],
+  'stair wall': ['stair wall', 'staircase', 'corridor/staircase'],
+  'rain screen': ['rain screen', 'ventilated facade', 'facade/exterior'],
+  'canopy': ['canopy', 'overhead exterior'],
+  'reception desk': ['reception desk', 'desk', 'curved desk'],
+};
+
+export const getApplicationImages = cache(async function getApplicationImages(
+  applicationName: string
+): Promise<Product[]> {
+  const products = await getProducts();
+  const norm = applicationName.toLowerCase();
+  const aliases = APP_ALIASES[norm] || [norm];
+
+  return products
+    .filter((p) => {
+      const app = p.application.toLowerCase();
+      const kw = p.keywords.join(',').toLowerCase();
+      const title = p.title.toLowerCase();
+      const desc = p.description.toLowerCase();
+      const text = `${app} ${kw} ${title} ${desc}`;
+      return aliases.some((alias) => text.includes(alias));
+    })
+    .sort((a, b) => {
+      // applicationHero records first
+      const aH = a.applicationHero ? 1 : 0;
+      const bH = b.applicationHero ? 1 : 0;
+      return bH - aH;
+    });
+});
 
 export function groupIntoFamilies(products: Product[]): DesignFamily[] {
   const map = new Map<string, Product[]>();
