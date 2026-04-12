@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Nav from '@/components/Nav';
-import Footer from '@/components/Footer';
+import FooterGate from '@/components/FooterGate';
 
 export const metadata: Metadata = {
   title: 'M|R Walls — Sculptural Corian Surfaces',
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Nav />
         {children}
-        <Footer />
+        <FooterGate />
       </body>
     </html>
   );
