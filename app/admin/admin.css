@@ -1,0 +1,3 @@
+/* Import only theme + utilities — skip preflight/base to avoid breaking existing CSS */
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
